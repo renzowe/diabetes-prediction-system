@@ -1,6 +1,5 @@
-// La API corre en el mismo host que el frontend, puerto 8000 (contenedor 'backend')
-const API_BASE = `${window.location.protocol}//${window.location.hostname}:8000`;
-const CIRCUMFERENCE = 339.3;
+// La URL del backend viene de config.js (cargado antes de este archivo)
+const CIRCUMFERENCE = 339.3; // 2 * PI * r(54), debe coincidir con style.css
 
 const screens = {
     start: document.getElementById('screen-start'),
@@ -37,6 +36,7 @@ document.getElementById('btn-start').addEventListener('click', () => {
 });
 
 // Evita que el navegador recargue la pagina si el participante presiona
+// Enter dentro del formulario (comportamiento nativo de <form>).
 document.getElementById('screen-form').addEventListener('submit', (e) => {
     e.preventDefault();
     document.getElementById('btn-submit').click();
@@ -113,7 +113,7 @@ function mostrarResultado(data, tiempoSegundos) {
     const gaugeColor = { bajo: 'var(--risk-low)', moderado: 'var(--risk-mid)', alto: 'var(--risk-high)' }[nivel];
     const gaugeEl = document.getElementById('gauge-value');
     gaugeEl.style.stroke = gaugeColor;
-    gaugeEl.style.strokeDashoffset = CIRCUMFERENCE;
+    gaugeEl.style.strokeDashoffset = CIRCUMFERENCE; // reinicia antes de animar
 
     showScreen('result');
 

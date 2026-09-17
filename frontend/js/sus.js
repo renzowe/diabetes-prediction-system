@@ -1,4 +1,4 @@
-const API_BASE = `${window.location.protocol}//${window.location.hostname}:8000`;
+// La URL del backend viene de config.js (cargado antes de este archivo)
 const CIRCUMFERENCE = 339.3;
 
 const PREGUNTAS_SUS = [
