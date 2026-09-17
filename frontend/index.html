@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de riesgo de diabetes tipo 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="wrap">
+
+        <header class="masthead">
+            <span class="masthead__mark" aria-hidden="true"></span>
+            <span class="masthead__name">Tamizaje DM2</span>
+        </header>
+
+        <!-- PANTALLA 1: INICIO -->
+        <section id="screen-start" class="screen">
+            <h1 class="display">Evaluación de riesgo de<br>diabetes tipo 2</h1>
+            <p class="lede">
+                A continuación se te harán algunas preguntas sobre tu edad, tus indicadores clínicos
+                y tus hábitos. El sistema estimará tu nivel de riesgo en unos segundos.
+            </p>
+
+            <div class="field">
+                <label for="codigo-participante">Código de participante</label>
+                <input type="text" id="codigo-participante" placeholder="Ej. P01" autocomplete="off">
+            </div>
+
+            <button type="button" class="btn btn--primary" id="btn-start">Comenzar evaluación</button>
+
+            <p class="disclaimer">
+                Este resultado es una estimación estadística y no constituye un diagnóstico médico.
+            </p>
+        </section>
+
+        <!-- PANTALLA 2: FORMULARIO -->
+        <form id="screen-form" class="screen" hidden>
+            <h2 class="section-title">Datos generales</h2>
+            <div class="grid">
+                <div class="field">
+                    <label for="edad">Edad</label>
+                    <input type="number" id="edad" min="30" max="64" required>
+                    <span class="hint">Entre 30 y 64 años</span>
+                </div>
+                <div class="field">
+                    <label for="genero">Sexo</label>
+                    <select id="genero" required>
+                        <option value="Female">Femenino</option>
+                        <option value="Male">Masculino</option>
+                        <option value="Other">Otro</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr class="rule">
+
+            <h2 class="section-title">Indicadores clínicos</h2>
+            <p class="section-note">Si no conoces alguno de estos valores, revisa tu último examen de laboratorio.</p>
+
+            <div class="grid">
+                <div class="field">
+                    <label for="imc">Índice de masa corporal (IMC)</label>
+                    <input type="number" id="imc" min="10" max="70" step="0.1" required>
+                </div>
+                <div class="field">
+                    <label for="glucosa">Glucosa en sangre (mg/dL)</label>
+                    <input type="number" id="glucosa" min="50" max="400" required>
+                </div>
+                <div class="field">
+                    <label for="hba1c">Nivel de HbA1c (%)</label>
+                    <input type="number" id="hba1c" min="3" max="15" step="0.1" required>
+                </div>
+                <div class="field">
+                    <label for="tabaquismo">Historial de tabaquismo</label>
+                    <select id="tabaquismo" required>
+                        <option value="never">Nunca he fumado</option>
+                        <option value="former">Fumé antes, ya no</option>
+                        <option value="not current">No fumo actualmente</option>
+                        <option value="current">Fumo actualmente</option>
+                        <option value="No Info">Prefiero no decir</option>
+                    </select>
+                </div>
+            </div>
+
+            <fieldset class="toggle-group">
+                <legend>¿Tienes hipertensión arterial?</legend>
+                <label class="toggle"><input type="radio" name="hipertension" value="1"><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="hipertension" value="0" checked><span>No</span></label>
+            </fieldset>
+
+            <fieldset class="toggle-group">
+                <legend>¿Tienes alguna enfermedad cardiovascular?</legend>
+                <label class="toggle"><input type="radio" name="cardiaca" value="1"><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="cardiaca" value="0" checked><span>No</span></label>
+            </fieldset>
+
+            <p class="error" id="form-error" hidden></p>
+
+            <button type="button" class="btn btn--primary" id="btn-submit">Evaluar mi riesgo</button>
+        </form>
+
+        <!-- PANTALLA 3: RESULTADO -->
+        <section id="screen-result" class="screen" hidden>
+            <h2 class="section-title">Tu resultado</h2>
+
+            <div class="result">
+                <svg class="gauge" viewBox="0 0 120 120" aria-hidden="true">
+                    <circle class="gauge__track" cx="60" cy="60" r="54"></circle>
+                    <circle class="gauge__value" id="gauge-value" cx="60" cy="60" r="54"></circle>
+                </svg>
+                <div class="result__figures">
+                    <span class="result__pct" id="result-pct">0%</span>
+                    <span class="result__label" id="result-label">Calculando…</span>
+                </div>
+            </div>
+
+            <p class="result__explain" id="result-explain"></p>
+
+            <p class="result__meta" id="result-meta"></p>
+
+            <p class="disclaimer">
+                Este resultado es una estimación generada por un modelo estadístico y no reemplaza
+                la evaluación de un profesional de salud. Ante cualquier duda, consulta a tu médico.
+            </p>
+
+            <button type="button" class="btn btn--ghost" id="btn-reset">Registrar otro participante</button>
+            <a href="sus.html" id="link-sus" class="btn btn--primary"
+                style="display:block;text-align:center;text-decoration:none;box-sizing:border-box;margin-top:10px;">¿Ya
+                terminaste? Completa la encuesta de usabilidad</a>
+        </section>
+
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta de usabilidad · Tamizaje DM2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <span class="masthead__mark" aria-hidden="true"></span>
+    <span class="masthead__name">Tamizaje DM2</span>
+  </header>
+
+  <!-- PANTALLA 1: ENCUESTA -->
+  <section id="screen-survey" class="screen">
+    <h1 class="display">Encuesta de usabilidad</h1>
+    <p class="lede">
+      Ya terminaste de usar el sistema. Ahora cuéntanos qué tan fácil o difícil te
+      pareció usarlo. No hay respuestas correctas o incorrectas.
+    </p>
+
+    <div class="field">
+      <label for="codigo-participante">Código de participante</label>
+      <input type="text" id="codigo-participante" placeholder="Ej. P01" autocomplete="off">
+    </div>
+
+    <hr class="rule">
+
+    <form id="sus-form"></form>
+
+    <p class="error" id="survey-error" hidden></p>
+
+    <button type="button" class="btn btn--primary" id="btn-submit-sus">Enviar evaluación</button>
+  </section>
+
+  <!-- PANTALLA 2: RESULTADO -->
+  <section id="screen-thanks" class="screen" hidden>
+    <h2 class="section-title">¡Gracias por tu evaluación!</h2>
+    <div class="result">
+      <svg class="gauge" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="gauge__track" cx="60" cy="60" r="54"></circle>
+        <circle class="gauge__value" id="gauge-value" cx="60" cy="60" r="54"></circle>
+      </svg>
+      <div class="result__figures">
+        <span class="result__pct" id="sus-pct">0</span>
+        <span class="result__label" id="sus-label">Calculando…</span>
+      </div>
+    </div>
+    <p class="result__explain">Tu puntaje de usabilidad (escala SUS, 0 a 100) ya quedó registrado junto a tus evaluaciones de riesgo.</p>
+    <a href="index.html" class="btn btn--ghost" style="display:block;text-decoration:none;box-sizing:border-box;">Volver al inicio</a>
+  </section>
+
+</div>
+
+<script src="js/sus.js"></script>
+</body>
+</html>

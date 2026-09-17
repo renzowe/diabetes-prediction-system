@@ -1,0 +1,50 @@
+# Variables de entorno (NUNCA subir: contiene contrasenas y claves)
+.env
+.env.local
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+venv/
+.venv/
+env/
+*.egg-info/
+
+# Pruebas
+.pytest_cache/
+.coverage
+htmlcov/
+test_db.sqlite3
+*.sqlite3
+local_dev.db
+reporte_pruebas.html
+reporte_pruebas.txt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Docker / base de datos local
+postgres_data/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Documentos personales y Tesis (Word, PDF, temporales de Office)
+*.docx
+*.doc
+~$*.docx
+~$*.doc
+*.pdf
+# Logs
+*.log
+logs/   
