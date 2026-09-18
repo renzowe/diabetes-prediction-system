@@ -9,6 +9,27 @@ const screens = {
 
 let startTime = null;
 let participantCode = '';
+let imcCalculado = null;
+
+function actualizarIMC() {
+    const peso = parseFloat(document.getElementById('peso').value);
+    const talla = parseFloat(document.getElementById('talla').value);
+    const display = document.getElementById('imc-display');
+
+    if (!peso || !talla) {
+        imcCalculado = null;
+        display.textContent = '—';
+        return;
+    }
+
+    const tallaMetros = talla / 100;
+    const imc = peso / (tallaMetros * tallaMetros);
+    imcCalculado = Math.round(imc * 10) / 10; // 1 decimal
+    display.textContent = imcCalculado.toFixed(1);
+}
+
+document.getElementById('peso').addEventListener('input', actualizarIMC);
+document.getElementById('talla').addEventListener('input', actualizarIMC);
 
 function showScreen(name) {
     Object.values(screens).forEach((el) => el.setAttribute('hidden', ''));
@@ -53,13 +74,24 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
         return;
     }
 
+    if (imcCalculado === null) {
+        errorEl.textContent = 'Ingresa tu peso y talla para calcular el IMC.';
+        errorEl.hidden = false;
+        return;
+    }
+    if (imcCalculado <= 10 || imcCalculado >= 70) {
+        errorEl.textContent = `El IMC calculado (${imcCalculado}) está fuera de un rango válido. Revisa el peso y la talla ingresados.`;
+        errorEl.hidden = false;
+        return;
+    }
+
     const payload = {
         edad: Number(document.getElementById('edad').value),
         genero: document.getElementById('genero').value,
         hipertension: Number(document.querySelector('input[name="hipertension"]:checked').value),
         enfermedad_cardiaca: Number(document.querySelector('input[name="cardiaca"]:checked').value),
         historial_tabaquismo: document.getElementById('tabaquismo').value,
-        imc: Number(document.getElementById('imc').value),
+        imc: imcCalculado,
         hba1c: Number(document.getElementById('hba1c').value),
         glucosa: Number(document.getElementById('glucosa').value),
         momento: 'sistema',
@@ -129,6 +161,8 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('screen-form').reset();
     document.getElementById('codigo-participante').value = '';
     document.getElementById('form-error').hidden = true;
+    document.getElementById('imc-display').textContent = '—';
+    imcCalculado = null;
     startTime = null;
     participantCode = '';
     showScreen('start');
