@@ -105,6 +105,7 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
 
     try {
         const res = await fetch(`${API_BASE}/predict`, {
+            signal: AbortSignal.timeout(30000),
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),

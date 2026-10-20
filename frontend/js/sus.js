@@ -77,6 +77,7 @@ document.getElementById('btn-submit-sus').addEventListener('click', async () => 
 
   try {
     const res = await fetch(`${API_BASE}/sus`, {
+      signal: AbortSignal.timeout(30000),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ participante_codigo: codigo, respuestas }),
