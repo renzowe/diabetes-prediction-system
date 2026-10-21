@@ -16,14 +16,14 @@ detección de diabetes. La ENDES no incluye glucosa ni HbA1c.
 
 ## 2. Datos y separación desarrollo / evaluación
 
-Generados por `ml/integrar_endes.py` a partir de los módulos 1629, 1630 y 1640 de la ENDES:
+Generados por `notebooks/01_integracion_endes.ipynb` a partir de los módulos 1629, 1630 y 1640 de la ENDES:
 
 | Archivo | Años | Registros | Uso |
 |---|---|---|---|
 | `data/processed/endes_lima_desarrollo_2021_2024.csv` | 2021–2024 | 8,909 (562 casos) | Todo el desarrollo |
 | `data/processed/endes_lima_evaluacion_2025.csv` | 2025 | 1,990 | Solo la evaluación final |
 
-**Regla:** ningún notebook ni script, salvo `ml/evaluar_final.py`, lee el archivo de evaluación.
+**Regla:** ningún notebook, salvo el de evaluación final (`notebooks/04_evaluacion_final.ipynb`), lee el archivo de evaluación.
 Ese script se ejecuta una sola vez, con el modelo congelado y su versión registrada en Git.
 
 Criterios de selección: Lima Metropolitana (`SHREGION = 1`), 30 a 69 años (`QS23`), `QS109` válido y
@@ -52,6 +52,23 @@ Se entrenan dos versiones con el mismo procedimiento: **modelo completo** (todos
 
 `QS107` (glucosa medida en 12 meses) no es predictor; solo define el subgrupo del análisis de
 robustez. `PESO15_AMAS` solo se usa en estadísticas descriptivas.
+
+## 3.1 Factores asociados (OE1 / HE1)
+
+Con los datos 2021–2024 (`notebooks/02_exploracion_factores.ipynb`):
+
+- Descriptivos ponderados con `PESO15_AMAS`; pruebas bivariadas sin ponderar (chi-cuadrado para
+  variables categóricas, Mann-Whitney para continuas).
+- OR crudos y OR ajustados por regresión logística multivariable con todos los predictores del
+  modelo completo, en casos completos. Las variables continuas se expresan por unidades
+  interpretables: edad por 10 años, IMC por 5 kg/m², perímetro abdominal por 10 cm, presión por
+  10 mmHg.
+- **Criterio de HE1:** cada uno de los cuatro factores (edad, IMC, perímetro abdominal e
+  hipertensión diagnosticada) se considera asociado si su OR ajustado tiene p < 0.05 en el modelo
+  multivariable. Se reporta el resultado de cada factor por separado.
+- Por la colinealidad esperada entre IMC y perímetro abdominal, se reportan los factores de inflación
+  de la varianza (VIF) y, como análisis de sensibilidad, el modelo ajustado con cada una de esas dos
+  variables por separado. Este análisis no cambia el criterio de HE1.
 
 ## 4. Preprocesamiento
 
@@ -114,3 +131,5 @@ resultados. La meta de AUC ≥ 0.75 se sustenta en Xie et al. (2019).
 | Fecha | Cambio | Motivo |
 |---|---|---|
 | 2026-10-21 | Versión inicial | — |
+| 2026-10-21 | Se agrega la sección 3.1 (análisis de factores asociados y criterio de HE1) | No estaba especificado; se fija antes de ejecutar el análisis |
+| 2026-10-21 | Los scripts de `ml/` pasan a notebooks en `notebooks/` (la codificación queda en `notebooks/preparacion.py`) | Mantener el método de trabajo del proyecto; no cambia ninguna decisión del análisis |

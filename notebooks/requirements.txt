@@ -1,0 +1,11 @@
+# Dependencias del análisis y entrenamiento del modelo.
+# scikit-learn debe coincidir con backend/requirements.txt para que el backend pueda cargar el modelo.
+scikit-learn==1.8.0
+pandas
+numpy
+scipy
+statsmodels
+matplotlib
+xgboost
+lightgbm
+shap

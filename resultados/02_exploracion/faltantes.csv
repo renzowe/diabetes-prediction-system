@@ -1,0 +1,15 @@
+variable,faltantes,%
+Edad (años),0,0.0
+Sexo masculino,0,0.0
+IMC (kg/m²),0,0.0
+Perímetro abdominal (cm),0,0.0
+Hipertensión diagnosticada,7,0.07857223032888092
+Fumó en los últimos 12 meses,1,0.011224604332697273
+Bebió alcohol en los últimos 12 meses,1,0.011224604332697273
+Días con frutas (última semana),2,0.022449208665394547
+Días con ensalada de verduras (última semana),1,0.011224604332697273
+Presión sistólica medida (mmHg),1,0.011224604332697273
+Presión diastólica medida (mmHg),1,0.011224604332697273
+Nivel educativo (0-5),56,0.6285778426310473
+Tiene seguro de salud,0,0.0
+Quintil de riqueza (1-5),0,0.0

@@ -1,0 +1,15 @@
+variable,VIF
+Edad (años),1.4473852264725682
+Sexo masculino,1.4481813948370252
+IMC (kg/m²),6.549782141068481
+Perímetro abdominal (cm),6.713198077617732
+Hipertensión diagnosticada,1.1810577141077498
+Fumó en los últimos 12 meses,1.1255945100873757
+Bebió alcohol en los últimos 12 meses,1.0895081885444426
+Días con frutas (última semana),1.1339312378160855
+Días con ensalada de verduras (última semana),1.0987653137368465
+Presión sistólica medida (mmHg),3.0491869815616774
+Presión diastólica medida (mmHg),2.5676761065705747
+Nivel educativo (0-5),1.2985999076980281
+Tiene seguro de salud,1.0234531743593633
+Quintil de riqueza (1-5),1.2724014353339672
