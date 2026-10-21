@@ -1,0 +1,15 @@
+{
+  "fecha_ejecucion": "2026-10-21T18:33:35",
+  "commit": "a886bc7",
+  "datos_evaluacion_sha256": "de1414fc48b351688b23059b0c70f31ae551780dd6abde11fa29e830a751c4c3",
+  "modelos": {
+    "completo_lightgbm.joblib": "b817df840c573e869797090a0a4fc730198803d024dad25b67b1b28eea2b0679",
+    "completo_random_forest.joblib": "3ec0040e8f2ae95faa3dffa2da0d3d8532cb35312876f7d1ed18a72247aa3027",
+    "completo_regresion_logistica.joblib": "3effa1f3e60af262a5b181d50dd37008af67177dee612019e0d17e17937fc5bb",
+    "completo_xgboost.joblib": "311437ad4573bc389455730941af2b08c1647d16807b97e616b78b3ec43e0b17",
+    "web_lightgbm.joblib": "633bc313c15ec05d64c8e8cb1687c51b47326dc8ca9495ab38e94fed96955d82",
+    "web_random_forest.joblib": "a082f94554fe45037ab3277877c46f7dbed295ae89838a419a4ad8133be45a69",
+    "web_regresion_logistica.joblib": "4cf2b747ca083114988c350a46b788ff4a2ced2499656a0c220cfe14d609a542",
+    "web_xgboost.joblib": "2dbe46f83db9594654a7b3fa167f4e3a21b8887b2735b8cd4387ac457a70bc2b"
+  }
+}

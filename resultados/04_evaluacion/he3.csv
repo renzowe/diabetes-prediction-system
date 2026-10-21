@@ -1,0 +1,3 @@
+version,algoritmo,AUC_ROC,AUC_ROC_IC95,AUC_≥_0.75,pendiente_calibracion,pendiente_IC95,IC95_pendiente_incluye_1
+completo,Regresión logística,0.796068913002094,0.755–0.835,Sí,1.0202072430422104,0.85–1.19,Sí
+web,Regresión logística,0.7977068659178881,0.757–0.835,Sí,1.0087041191627344,0.84–1.18,Sí
