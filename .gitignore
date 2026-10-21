@@ -26,6 +26,13 @@ reporte_pruebas.txt
 # Jupyter
 .ipynb_checkpoints/
 
+# Datos del INEI (ENDES): se descargan del portal de microdatos, no se versionan
+/ENDES/
+/Diccionario_BD/
+/1036-Modulo1640/
+# Datos derivados generados por ml/integrar_endes.py
+/data/
+
 # Docker / base de datos local
 postgres_data/
 
