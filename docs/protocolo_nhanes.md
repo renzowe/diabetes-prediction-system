@@ -150,3 +150,6 @@ SHAP), antes de la evaluación final.
 | Fecha | Cambio | Motivo |
 |---|---|---|
 | 2026-10-22 | Versión inicial | — |
+| 2026-10-21 | En 2007–2008 la pregunta de pastillas para la diabetes se llama `DID070` (misma pregunta y códigos que `DIQ070`); se renombra a `DIQ070` al leer `DIQ_E` | El nombre no existe en ese ciclo; se detectó al integrar, antes de la partición. No cambia ningún criterio |
+| 2026-10-21 | Partición generada (`notebooks/nhanes/01_integracion_particion.ipynb`): 203 conglomerados, 40 en prueba (19.7 %); 66,148 participantes en `DEMO`, 0 `SEQN` duplicados. SHA-256 de `particion/particion_nhanes.csv`: `2f05d104399e7e063d9f142d0532ccced9b500ba7cf5f93611f56980fd087fcd`. URL y SHA-256 de cada archivo fuente en `particion/fuentes_nhanes.csv` | Sección 5 |
+| 2026-10-21 | Tras los criterios de selección: desarrollo 18,264 participantes (163 conglomerados); prueba 4,627 (40 conglomerados, reservado). SHA-256 de `data/processed/nhanes_prueba.csv`: `c48492938873def3d096e59c8d465e32843fdd574d3dd2b349e90754d58ee62c` | Permite comprobar en la evaluación final que el archivo de prueba no cambió |

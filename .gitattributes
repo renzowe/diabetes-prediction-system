@@ -1,0 +1,2 @@
+# La partición y su SHA-256 deben guardarse byte a byte (sin conversión de fin de línea)
+particion/*.csv -text
