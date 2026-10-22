@@ -96,6 +96,7 @@ class EvaluacionSalida(BaseModel):
     probabilidad: float = Field(..., description="Probabilidad estimada de HbA1c >= 5.7 % (0-1)")
     intervalo: tuple[float, float] = Field(..., description="Intervalo bootstrap del 95 % de la probabilidad estimada")
     nota_intervalo: str
+    aviso_edad: Optional[str] = Field(None, description="Aviso de menor capacidad de discriminación en personas de 60 a 69 años (añadido tras la evaluación final)")
     prevalencia_referencia: float = Field(..., description="Proporción ponderada de HbA1c >= 5.7 % en la población de referencia (NHANES, desarrollo)")
     imc: float
     factores: list[FactorSalida] = Field(..., description="Principales contribuciones SHAP (hasta 3, con |SHAP| >= 0.05)")

@@ -188,6 +188,9 @@ function mostrarResultado(data) {
     document.getElementById('result-pct').textContent = formatoPorcentaje(data.probabilidad);
     document.getElementById('result-interval').textContent =
         `Intervalo del 95 %: ${formatoPorcentaje(inferior)} a ${formatoPorcentaje(superior)}`;
+    const avisoEdad = document.getElementById('result-aviso-edad');
+    avisoEdad.textContent = data.aviso_edad ?? '';
+    avisoEdad.hidden = !data.aviso_edad;
     document.getElementById('result-message').textContent = data.mensaje;
     document.getElementById('result-reference').textContent =
         `Como referencia, en la población con la que se desarrolló el modelo (adultos de 20 a 69 años de EE. UU. sin `

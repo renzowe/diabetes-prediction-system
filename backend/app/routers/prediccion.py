@@ -7,7 +7,8 @@ from app.database import get_db
 from app.db_models.evaluacion import Evaluacion
 from app.schemas.diabetes import EvaluacionEntrada, EvaluacionSalida, FactorSalida, ModeloSalida, RecomendacionSalida
 from app.services.predictor import (
-    MENSAJE_ALCANCE, NOTA_FACTORES, NOTA_INTERVALO, NOTA_RECOMENDACIONES, PREVALENCIA_REFERENCIA, ModeloRiesgo,
+    AVISO_EDAD, EDAD_AVISO, MENSAJE_ALCANCE, NOTA_FACTORES, NOTA_INTERVALO, NOTA_RECOMENDACIONES,
+    PREVALENCIA_REFERENCIA, ModeloRiesgo,
 )
 from app.services.recomendaciones import FUENTES, VERSION_CATALOGO
 
@@ -47,6 +48,7 @@ def evaluar(datos: EvaluacionEntrada, db: Session = Depends(get_db), modelo: Mod
         probabilidad=round(resultado.probabilidad, 4),
         intervalo=(round(resultado.intervalo[0], 4), round(resultado.intervalo[1], 4)),
         nota_intervalo=NOTA_INTERVALO,
+        aviso_edad=AVISO_EDAD if datos.edad >= EDAD_AVISO else None,
         prevalencia_referencia=PREVALENCIA_REFERENCIA,
         imc=datos.imc,
         factores=[FactorSalida(factor=f.factor, valor=f.valor, efecto=f.efecto, contribucion=f.contribucion)

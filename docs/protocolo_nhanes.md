@@ -145,6 +145,20 @@ SHAP), antes de la evaluación final.
 - Calibración adecuada: pendiente entre 0.8 y 1.2, razón O/E entre 0.9 y 1.1 y Brier menor que el
   nulo. IC, intercepto, curva e ICI se reportan sin criterio de aprobación.
 
+### 14.1 Enmienda posterior a la evaluación final (2026-10-21; retirada como criterio el 2026-10-22)
+
+> **Retirada el 2026-10-22.** HE3 se contrasta **solo** con la meta prefijada (AUC-ROC ≥ 0.75), que no se alcanzó. La clasificación convencional (0.70–0.80, discriminación aceptable) se usa únicamente para **interpretar** el resultado en la discusión, no como criterio de contraste. Se conserva abajo el texto original de la enmienda como registro.
+
+**Esta enmienda se hizo después de conocer el resultado de la evaluación final** (AUC-ROC de 0.744). No reemplaza la meta anterior: ambos criterios se reportan.
+
+- **Meta prefijada (se conserva):** AUC-ROC ≥ 0.75. **Resultado: no alcanzada** (0.744; IC 95 % 0.730–0.757).
+- **Criterio enmendado:** discriminación aceptable, AUC-ROC entre 0.70 y 0.80. **Resultado: dentro del rango.**
+- **Justificación del rango:**
+  - La clasificación convencional de Hosmer, Lemeshow y Sturdivant (2013) y de Mandrekar (2010) considera *aceptable* una AUC de 0.70 a 0.80.
+  - El sistema es de autoevaluación y tamizaje con predictores no invasivos. No diagnostica: deriva a una prueba de laboratorio.
+  - FINDRISC, la escala no invasiva de referencia, obtuvo una AUC de 0.67 para prediabetes en NHANES 1999–2010 (Zhang et al., 2014).
+- Los criterios de calibración no cambian.
+
 ## 15. Registro de cambios
 
 Todas las fechas están en hora de Lima (UTC−5).
@@ -160,3 +174,6 @@ Todas las fechas están en hora de Lima (UTC−5).
 | 2026-10-21 | Sección 10: el bootstrap por conglomerado remuestrea con reemplazo los 163 conglomerados del desarrollo, con `numpy.random.default_rng(42)`; los coeficientes de cada remuestreo se guardan en `models/nhanes/bootstrap_regresion_logistica.joblib` | El protocolo no fijaba la semilla ni el formato. Se registró antes de ejecutar el bootstrap, con la regresión logística ya seleccionada en el notebook 03 |
 | 2026-10-21 | Sección 13, salida de la web: (1) probabilidad con su intervalo bootstrap; (2) principales contribuciones individuales, calculadas como valores SHAP exactos del modelo lineal en log-odds (coeficiente × valor estandarizado, con IMC y perímetro abdominal sumados como "composición corporal"), hasta 3 factores con \|SHAP\| ≥ 0.05, ordenados por magnitud; (3) dos o tres recomendaciones tomadas de un catálogo con fuentes (`docs/catalogo_recomendaciones.md`), activadas por criterios de las guías y no por el signo de una contribución. Las contribuciones negativas solo se explican y nunca generan un consejo. Ningún mensaje promete reducir el riesgo | Decisión del investigador con el desarrollo, antes de la evaluación final. Los mensajes se someterán al juicio de expertos |
 | 2026-10-21 | Evaluación final ejecutada una sola vez (`notebooks/nhanes/05_evaluacion_final.ipynb`, commit `aa31a1f`, 23:23–23:26). Huella del archivo de prueba verificada. Antes se ensayó el código con el desarrollo, sin leer la prueba. Regresión logística: AUC-ROC 0.744 (IC 95 % 0.730–0.757), pendiente 0.98, O/E 1.015, Brier 0.169 frente a 0.196 del nulo. HE3: meta de AUC no alcanzada; criterios de calibración cumplidos. HE2: sin diferencias frente a la regresión logística (p de DeLong ≥ 0.37). Para la ejecución se fijaron dos detalles que la sección 11 no precisaba: la semilla del bootstrap por conglomerado (`default_rng(42)`, mismos remuestreos para todos los modelos) y que el ICI se reporta sin IC | Sección 11. El modelo no se modifica |
+| 2026-10-21 | **Cambio posterior a la evaluación final.** La web muestra a las personas de 60 a 69 años un aviso de menor capacidad de discriminación (`AVISO_EDAD` en `backend/app/services/predictor.py`). No se modificaron el modelo, sus predictores, sus coeficientes, el umbral, la probabilidad mostrada ni las recomendaciones. Las hipótesis y las metas de la sección 14 se conservan sin cambios, y su contraste se reporta tal como resultó: HE3 parcialmente cumplida (AUC 0.744 < 0.75; calibración adecuada) y HE2 no confirmada | En la prueba, la AUC-ROC en el grupo de 60 a 69 años fue de 0.573 (n = 736), con pendiente de 0.52. Informar a ese grupo es una decisión de comunicación, no de modelado |
+| 2026-10-21 | **Enmienda posterior a la evaluación final** (sección 14.1): se añade el criterio de discriminación aceptable (AUC-ROC de 0.70 a 0.80). La meta prefijada (≥ 0.75) se conserva y se reporta como no alcanzada; ambos criterios se informan. No se modificó el modelo | Decisión del investigador tras conocer el resultado, sustentada en la clasificación convencional de la AUC y en el desempeño de FINDRISC para prediabetes en NHANES |
+| 2026-10-22 | Se retira el criterio enmendado de la sección 14.1. HE3 se contrasta solo con la meta prefijada (≥ 0.75; no alcanzada). La clasificación convencional de la AUC (Hosmer et al., 2013; Mandrekar, 2010) y el AUC de FINDRISC en NHANES (Zhang et al., 2014) se usan como marco interpretativo, sin cambiar el criterio | Un criterio añadido después de conocer el resultado no puede servir para contrastar la hipótesis. Basta con usarlo para interpretar el resultado |

@@ -74,6 +74,16 @@ NOTA_FACTORES = (
     "cambiar un dato vaya a modificar su probabilidad real."
 )
 
+# Aviso añadido DESPUES de la evaluacion final (protocolo, seccion 15): en el conjunto de prueba la
+# AUC-ROC fue 0.573 en el grupo de 60 a 69 años (n = 736). No cambia el modelo ni la probabilidad.
+EDAD_AVISO = 60
+AVISO_EDAD = (
+    "En personas de 60 a 69 años, la evaluación del modelo mostró que distingue poco entre personas de la misma "
+    "edad: en ese grupo, la estimación ayuda menos a saber quién tiene la HbA1c elevada. Tome este resultado con "
+    "especial cautela. A su edad, las guías indican realizarse una prueba de laboratorio, que es la única forma de "
+    "conocer su HbA1c."
+)
+
 NOTA_RECOMENDACIONES = (
     "Recomendaciones generales tomadas de guías de salud, elegidas según los datos que ingresó. No sustituyen la "
     "consulta con un profesional de salud ni garantizan una reducción del riesgo. Están pendientes de revisión "

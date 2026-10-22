@@ -73,7 +73,13 @@ Así, cada persona recibe siempre dos o tres mensajes.
 - **Criterio:** Se muestra solo si los criterios anteriores dan menos de dos recomendaciones.
 - **Fuentes:** ADA-2.
 
-## 4. Fuentes
+## 4. Aviso para personas de 60 a 69 años
+
+Se añadió el 2026-10-21, **después de la evaluación final**, y no es una recomendación. En el conjunto de prueba, la AUC-ROC del modelo en el grupo de 60 a 69 años fue de 0.573 (n = 736), frente a 0.744 en el total. El aviso se muestra a las personas de 60 años o más y no cambia la probabilidad estimada:
+
+> En personas de 60 a 69 años, la evaluación del modelo mostró que distingue poco entre personas de la misma edad: en ese grupo, la estimación ayuda menos a saber quién tiene la HbA1c elevada. Tome este resultado con especial cautela. A su edad, las guías indican realizarse una prueba de laboratorio, que es la única forma de conocer su HbA1c.
+
+## 5. Fuentes
 
 - **ADA-2.** American Diabetes Association Professional Practice Committee. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S27–S49. doi:10.2337/dc26-S002
 - **ADA-3.** American Diabetes Association Professional Practice Committee. 3. Prevention or Delay of Diabetes and Associated Comorbidities: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S50–S60. doi:10.2337/dc26-S003
@@ -81,9 +87,9 @@ Así, cada persona recibe siempre dos o tres mensajes.
 - **OMS-AF.** Bull FC, Al-Ansari SS, Biddle S, et al. World Health Organization 2020 guidelines on physical activity and sedentary behaviour. Br J Sports Med. 2020;54(24):1451–1462. doi:10.1136/bjsports-2020-102955
 - **CDC-TAB.** Centers for Disease Control and Prevention. Smoking and Diabetes. Tips From Former Smokers. https://www.cdc.gov/tobacco/campaign/tips/diseases/diabetes.html (revisado el 13 de octubre de 2023)
 
-## 5. Puntos para el juicio de expertos
+## 6. Puntos para el juicio de expertos
 
-Además de calificar cada mensaje (sección 6), se pide la opinión del panel sobre estos puntos:
+Además de calificar cada mensaje y el aviso de edad (sección 7), se pide la opinión del panel sobre estos puntos:
 
 1. **Criterio de tamizaje.** La ADA incluye la ascendencia latina entre los factores de riesgo de su tabla 2.5. El sistema no pregunta la etnia, y el criterio se aplica solo con la edad, el IMC, el antecedente familiar, la hipertensión y la actividad física. ¿Debería considerarse que, en Lima, el sobrepeso basta por sí solo para recomendar la prueba?
 2. **Perímetro abdominal.** Ningún mensaje se activa por el perímetro abdominal, porque no se pudieron verificar puntos de corte específicos para población sudamericana. ¿Se recomienda alguno (por ejemplo, los de la IDF o los de una guía peruana)?
@@ -91,7 +97,7 @@ Además de calificar cada mensaje (sección 6), se pide la opinión del panel so
 4. **Pertinencia de las fuentes.** Las guías citadas son de EE. UU. y de la OMS. ¿Hay guías o normas técnicas peruanas que deban citarse en su lugar o además?
 5. **Redacción.** Claridad para la población general de Lima y uso de "usted".
 
-## 6. Formato sugerido para la calificación
+## 7. Formato sugerido para la calificación
 
 Para cada mensaje, cada experto califica de 1 (muy en desacuerdo) a 4 (muy de acuerdo):
 

@@ -176,3 +176,21 @@ def test_documento_del_catalogo_coincide_con_los_mensajes_de_la_web():
         assert r.texto in documento, r.id
     for referencia in FUENTES.values():
         assert referencia in documento
+
+
+def test_aviso_de_edad_solo_de_60_a_69(client, payload_perfil_alto):
+    """Aviso añadido tras la evaluación final: no cambia la probabilidad, solo se muestra desde los 60 años."""
+    joven = client.post("/predict", json={**payload_perfil_alto, "edad": 59}).json()
+    mayor = client.post("/predict", json={**payload_perfil_alto, "edad": 60}).json()
+    assert joven["aviso_edad"] is None
+    assert "distingue poco" in mayor["aviso_edad"]
+    modelo = client.app.state.modelo
+    esperada = modelo._pipeline.predict_proba(modelo.fila(EvaluacionEntrada(**{**payload_perfil_alto, "edad": 60})))[0, 1]
+    assert abs(mayor["probabilidad"] - esperada) < 1e-3
+
+
+def test_documento_del_catalogo_incluye_el_aviso_de_edad():
+    from app.services.predictor import AVISO_EDAD
+
+    documento = (RAIZ / "docs" / "catalogo_recomendaciones.md").read_text(encoding="utf-8")
+    assert AVISO_EDAD in documento
