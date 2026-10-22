@@ -26,14 +26,8 @@ reporte_pruebas.txt
 # Jupyter
 .ipynb_checkpoints/
 
-# Datos del INEI (ENDES): se descargan del portal de microdatos, no se versionan
-/ENDES/
-/Diccionario_BD/
-/1036-Modulo1640/
-# Datos derivados generados por los notebooks
+# Datos de NHANES: los descarga del CDC y los procesa notebooks/nhanes/01; no se versionan
 /data/
-# Dataset BRFSS usado solo para comparaciones exploratorias
-/diabetes_012_health_indicators_BRFSS2015.csv
 
 # Docker / base de datos local
 postgres_data/

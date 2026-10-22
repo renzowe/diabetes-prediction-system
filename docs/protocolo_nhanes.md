@@ -2,14 +2,14 @@
 
 Fija las decisiones de datos, partición, modelado y evaluación **antes** de descargar los datos de
 desarrollo y prueba, conforme al plan de tesis v6. Cualquier cambio posterior se registra en la
-sección 15 con fecha y motivo. El protocolo de la fase anterior (ENDES) está en
-`docs/protocolo_analisis.md`.
+sección 15 con fecha y motivo. El protocolo de la fase exploratoria anterior (ENDES)
+se conserva en el historial de Git (etiqueta `protocolo-v1`).
 
 ## 0. Exploraciones previas (declaradas)
 
 | Exploración | Datos usados | Qué se hizo | Consecuencia |
 |---|---|---|---|
-| Desarrollo completo con ENDES 2021–2025 | ENDES | Modelo de diagnóstico autorreportado (notebooks 01–06) | Se cambió de fuente: la ENDES no mide la glucemia |
+| Desarrollo completo con ENDES 2021–2025 | ENDES | Modelo de diagnóstico autorreportado (notebooks 01–06, retirados del proyecto el 2026-10-22; disponibles en el historial de Git) | Se cambió de fuente: la ENDES no mide la glucemia |
 | Exploración de NHANES 2017–marzo 2020 (`P_*`) | `P_DEMO`, `P_BMX`, `P_GHB`, `P_GLU`, `P_DIQ`, `P_BPQ`, `P_MCQ`, `P_SMQ`, `P_PAQ` | Proporciones de diabetes y de HbA1c elevada por perfil; un modelo logístico preliminar sin calcular su AUC | Orientó el desenlace y la población. **Ese ciclo va íntegro al desarrollo** |
 | Revisión de documentación, 2005–2006 a 2021–2023 | Solo páginas de documentación (no datos) | Disponibilidad de `MCQ300C`, `PAQ650/665`, `DIQ160` y HbA1c | Se usan los ciclos 2007–2008 a 2017–marzo 2020 |
 
@@ -177,3 +177,4 @@ Todas las fechas están en hora de Lima (UTC−5).
 | 2026-10-21 | **Cambio posterior a la evaluación final.** La web muestra a las personas de 60 a 69 años un aviso de menor capacidad de discriminación (`AVISO_EDAD` en `backend/app/services/predictor.py`). No se modificaron el modelo, sus predictores, sus coeficientes, el umbral, la probabilidad mostrada ni las recomendaciones. Las hipótesis y las metas de la sección 14 se conservan sin cambios, y su contraste se reporta tal como resultó: HE3 parcialmente cumplida (AUC 0.744 < 0.75; calibración adecuada) y HE2 no confirmada | En la prueba, la AUC-ROC en el grupo de 60 a 69 años fue de 0.573 (n = 736), con pendiente de 0.52. Informar a ese grupo es una decisión de comunicación, no de modelado |
 | 2026-10-21 | **Enmienda posterior a la evaluación final** (sección 14.1): se añade el criterio de discriminación aceptable (AUC-ROC de 0.70 a 0.80). La meta prefijada (≥ 0.75) se conserva y se reporta como no alcanzada; ambos criterios se informan. No se modificó el modelo | Decisión del investigador tras conocer el resultado, sustentada en la clasificación convencional de la AUC y en el desempeño de FINDRISC para prediabetes en NHANES |
 | 2026-10-22 | Se retira el criterio enmendado de la sección 14.1. HE3 se contrasta solo con la meta prefijada (≥ 0.75; no alcanzada). La clasificación convencional de la AUC (Hosmer et al., 2013; Mandrekar, 2010) y el AUC de FINDRISC en NHANES (Zhang et al., 2014) se usan como marco interpretativo, sin cambiar el criterio | Un criterio añadido después de conocer el resultado no puede servir para contrastar la hipótesis. Basta con usarlo para interpretar el resultado |
+| 2026-10-22 | Se retiran del proyecto los archivos de la exploración previa con la ENDES (notebooks 01–06, modelos `models/v2`, resultados y documentos) y del dataset BRFSS. Se conservan en el historial de Git | Orden del proyecto. La exploración sigue declarada en la sección 0 |

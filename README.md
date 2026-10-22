@@ -30,7 +30,6 @@ remuestreos bootstrap; el backend los carga al iniciar.
 diabetes-prediction-system/
 ├── docs/               Protocolos de análisis, catálogo de recomendaciones y borradores
 ├── notebooks/nhanes/   Integración, partición, factores, entrenamiento, bootstrap y evaluación final
-├── notebooks/          (01–06) Fase exploratoria previa con ENDES
 ├── particion/          Partición desarrollo/prueba y huellas de los archivos fuente
 ├── models/nhanes/      Modelos congelados (.joblib), bootstrap y selección
 ├── resultados/nhanes/  Tablas y figuras de cada notebook
@@ -108,8 +107,8 @@ Fase NHANES (`notebooks/nhanes/`), según `docs/protocolo_nhanes.md`:
 4. `04_intervalos_bootstrap`: intervalos individuales por bootstrap por conglomerado.
 5. `05_evaluacion_final`: evaluación única con el conjunto de prueba reservado (OE2, OE3).
 
-Los notebooks 01–06 de la carpeta `notebooks/` corresponden a la fase exploratoria previa con
-la ENDES (`docs/protocolo_analisis.md`), que motivó el cambio a NHANES.
+La exploración previa con la ENDES, declarada en la sección 0 del protocolo, se retiró del
+proyecto y se conserva en el historial de Git (etiqueta `protocolo-v1`).
 
 ## Nota sobre los datos
 
