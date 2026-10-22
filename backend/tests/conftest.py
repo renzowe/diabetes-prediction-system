@@ -2,12 +2,15 @@ import os
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
+# En el repositorio los modelos estan en <raiz>/models; en el contenedor Docker, en /app/models
+MODELOS = next(p for p in (RAIZ / "models" / "nhanes", Path(__file__).resolve().parents[1] / "models" / "nhanes")
+               if (p / "seleccion.json").exists())
 
 # Se define ANTES de importar la app: base de datos SQLite exclusiva para pruebas y rutas absolutas
 # para que las pruebas funcionen desde cualquier carpeta.
 os.environ["DATABASE_URL"] = "sqlite:///./test_db.sqlite3"
 os.environ["API_KEY"] = "test-key-123"
-os.environ["MODELS_DIR"] = str(RAIZ / "models" / "nhanes")
+os.environ["MODELS_DIR"] = str(MODELOS)
 
 import pytest
 from fastapi.testclient import TestClient

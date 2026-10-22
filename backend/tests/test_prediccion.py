@@ -1,15 +1,17 @@
 import json
-from pathlib import Path
 
 import joblib
 import numpy as np
 import pandas as pd
+import pytest
 
 from app.schemas.diabetes import EvaluacionEntrada
 from app.services.recomendaciones import CATALOGO, FUENTES, Perfil, seleccionar
+from tests.conftest import MODELOS, RAIZ
 
-RAIZ = Path(__file__).resolve().parents[2]
-MODELOS = RAIZ / "models" / "nhanes"
+CATALOGO_MD = RAIZ / "docs" / "catalogo_recomendaciones.md"
+# docs/ no se copia al contenedor Docker: esas pruebas solo corren en el repositorio
+requiere_docs = pytest.mark.skipif(not CATALOGO_MD.exists(), reason="docs/ no esta disponible (contenedor Docker)")
 
 
 def test_estado_informa_el_modelo_cargado(client):
@@ -169,9 +171,10 @@ def test_predict_guarda_la_evaluacion_con_intervalo_y_mensajes(client, payload_p
     assert 0 < r["tiempo_prediccion_ms"] < 2000
 
 
+@requiere_docs
 def test_documento_del_catalogo_coincide_con_los_mensajes_de_la_web():
     """docs/catalogo_recomendaciones.md se entrega al juicio de expertos: debe tener los mismos textos."""
-    documento = (RAIZ / "docs" / "catalogo_recomendaciones.md").read_text(encoding="utf-8")
+    documento = CATALOGO_MD.read_text(encoding="utf-8")
     for r in CATALOGO:
         assert r.texto in documento, r.id
     for referencia in FUENTES.values():
@@ -189,8 +192,9 @@ def test_aviso_de_edad_solo_de_60_a_69(client, payload_perfil_alto):
     assert abs(mayor["probabilidad"] - esperada) < 1e-3
 
 
+@requiere_docs
 def test_documento_del_catalogo_incluye_el_aviso_de_edad():
     from app.services.predictor import AVISO_EDAD
 
-    documento = (RAIZ / "docs" / "catalogo_recomendaciones.md").read_text(encoding="utf-8")
+    documento = CATALOGO_MD.read_text(encoding="utf-8")
     assert AVISO_EDAD in documento
