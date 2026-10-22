@@ -1,137 +1,212 @@
-"""Carga el modelo web congelado en notebooks/03 y calcula la probabilidad estimada y las
-contribuciones de los factores a cada resultado."""
+"""Carga el modelo NHANES congelado en notebooks/nhanes/03 y los remuestreos bootstrap de
+notebooks/nhanes/04, y calcula para cada persona la probabilidad estimada, su intervalo, las
+contribuciones SHAP de cada factor y las recomendaciones del catalogo."""
 
 import json
 from dataclasses import dataclass
 from pathlib import Path
 
 import joblib
+import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
 from app.schemas.diabetes import EvaluacionEntrada
+from app.services.recomendaciones import Perfil, Recomendacion, seleccionar
 
 # Predictor del modelo -> factor que se explica. IMC y perimetro abdominal estan muy correlacionados
-# (r = 0.90) y el modelo estima el efecto de cada uno a igual valor del otro; por eso se suman en un
-# solo factor.
+# (r = 0.91) y el modelo estima el efecto de cada uno a igual valor del otro; por eso se suman en un
+# solo factor. En un modelo lineal los valores SHAP son aditivos, asi que la suma es exacta.
 FACTOR_DE_PREDICTOR = {
     "edad": "edad",
     "hombre": "sexo",
     "imc": "composicion_corporal",
     "cintura": "composicion_corporal",
     "hta": "hipertension",
-    "tabaco": "tabaco",
-    "alcohol": "alcohol",
-    "frutas_dias": "frutas",
-    "verduras_dias": "verduras",
+    "familiar_dm": "antecedente_familiar",
+    "actividad": "actividad",
+    "fuma": "tabaquismo",
 }
 
-# Factores cuya contribucion se muestra al usuario, con su etiqueta y el valor que ingreso la persona.
-# Tabaco, alcohol, frutas y verduras se usan en el modelo pero no se muestran: sus asociaciones con el
-# diagnostico reportado son pequeñas o de causa incierta (docs/analisis_alcohol.md).
-FACTORES_MOSTRADOS = {
+
+def _si_no(valor: bool | None, si: str, no: str) -> str:
+    return "No sabe" if valor is None else (si if valor else no)
+
+
+# Factor -> (etiqueta, dato de la persona en lenguaje sencillo)
+ETIQUETAS = {
     "edad": ("Edad", lambda d: f"{d.edad} años"),
     "sexo": ("Sexo", lambda d: "Mujer" if d.sexo == "femenino" else "Hombre"),
     "composicion_corporal": (
         "Composición corporal",
-        lambda d: f"IMC {d.imc:.1f} · perímetro abdominal {d.cintura_cm:.0f} cm",
+        lambda d: f"IMC {d.imc:.1f}" + (f" · perímetro abdominal {d.cintura_cm:.0f} cm" if d.cintura_cm else ""),
     ),
-    "hipertension": (
-        "Hipertensión arterial",
-        lambda d: "Con diagnóstico médico" if d.hipertension else "Sin diagnóstico médico",
-    ),
+    "hipertension": ("Hipertensión arterial", lambda d: _si_no(d.hipertension, "Con diagnóstico médico", "Sin diagnóstico médico")),
+    "antecedente_familiar": ("Familiar directo con diabetes", lambda d: _si_no(d.familiar_diabetes, "Sí", "No")),
+    "actividad": ("Actividad física recreativa", lambda d: _si_no(d.actividad_fisica, "Sí realiza", "No realiza")),
+    "tabaquismo": ("Tabaco", lambda d: _si_no(d.fuma, "Fuma actualmente", "No fuma")),
 }
 
-# Proporcion de diagnostico autorreportado en los datos de desarrollo (562 / 8,909; notebooks/01)
-PREVALENCIA_REFERENCIA = 562 / 8909
+MAXIMO_FACTORES = 3
+CONTRIBUCION_MINIMA = 0.05  # log-odds; contribuciones menores no se muestran
+
+# Proporcion ponderada de HbA1c >= 5.7 % en el desarrollo (notebooks/nhanes/02, prevalencia.csv)
+PREVALENCIA_REFERENCIA = 0.2062
 
 MENSAJE_ALCANCE = (
-    "Este resultado indica qué tanto se parece su perfil al de las personas que, en la encuesta "
-    "ENDES, reportaron haber recibido un diagnóstico de diabetes. No es un diagnóstico ni indica "
-    "si usted tiene diabetes. Si desea conocer su estado, solicite una prueba de glucosa en un "
-    "establecimiento de salud."
+    "Esta cifra estima qué proporción de las personas con un perfil como el suyo tenía, sin saberlo, una "
+    "hemoglobina glicosilada (HbA1c) de 5.7 % o más, valor compatible con prediabetes o diabetes, en la encuesta "
+    "NHANES de Estados Unidos. No es un diagnóstico ni indica si usted tiene diabetes: solo un análisis de "
+    "laboratorio puede confirmarlo. El modelo se desarrolló con población de Estados Unidos y su aplicación en "
+    "Lima Metropolitana está en evaluación."
+)
+
+NOTA_INTERVALO = (
+    "El intervalo indica la precisión con que el modelo estima esta proporción para su perfil. No indica un "
+    "rango de su HbA1c ni la certeza sobre su caso individual."
 )
 
 NOTA_FACTORES = (
-    "Estas contribuciones describen cómo el modelo combinó sus datos para obtener la estimación, en "
-    "comparación con una persona promedio de la población de referencia (adultos de 30 a 69 años de "
-    "Lima Metropolitana, ENDES 2021-2024). No son consejos de salud ni efectos causales: no indican "
-    "que cambiar un dato vaya a modificar su probabilidad real de tener diabetes. El modelo también "
-    "usa sus respuestas sobre tabaco, alcohol, frutas y verduras, pero su contribución no se muestra "
-    "porque su asociación con el diagnóstico reportado es pequeña o de causa incierta."
+    "Estas contribuciones (valores SHAP) describen cómo el modelo combinó sus datos para obtener la estimación, "
+    "en comparación con una persona promedio de la población de referencia (adultos de 20 a 69 años de EE. UU. "
+    "sin diagnóstico previo, NHANES 2007-2020). No son consejos de salud ni efectos causales: no indican que "
+    "cambiar un dato vaya a modificar su probabilidad real."
+)
+
+NOTA_RECOMENDACIONES = (
+    "Recomendaciones generales tomadas de guías de salud, elegidas según los datos que ingresó. No sustituyen la "
+    "consulta con un profesional de salud ni garantizan una reducción del riesgo. Están pendientes de revisión "
+    "por un panel de expertos."
 )
 
 
 @dataclass(frozen=True)
 class Factor:
+    clave: str
     factor: str
-    valor: str           # dato de la persona, en lenguaje sencillo
+    valor: str
     efecto: str          # "aumenta" | "disminuye" (respecto de la persona promedio)
-    contribucion: float  # en log-odds
+    contribucion: float  # valor SHAP en log-odds
 
 
 @dataclass(frozen=True)
 class Resultado:
     probabilidad: float
-    contribuciones: dict[str, float]  # todos los factores, incluidos los que no se muestran
+    intervalo: tuple[float, float]
+    contribuciones: dict[str, float]  # todos los factores
     factores_mostrados: list[Factor]
+    recomendaciones: list[Recomendacion]
+
+
+def _parametros(pipeline: Pipeline) -> dict:
+    """Valores de imputacion, media, desviacion y coeficiente de cada predictor (mismo formato que
+    los remuestreos de notebooks/nhanes/04)."""
+    prep, modelo = pipeline.named_steps["prep"], pipeline.named_steps["modelo"]
+    filas, j = {}, 0
+    for nombre, sub, columnas in prep.transformers_:
+        if nombre == "remainder":
+            continue
+        imputar, escalar = sub.named_steps["imputar"], sub.named_steps["escalar"]
+        for k, col in enumerate(columnas):
+            filas[col] = (imputar.statistics_[k], escalar.mean_[k], escalar.scale_[k], modelo.coef_[0, j])
+            j += 1
+    return filas
 
 
 class ModeloRiesgo:
-    """Envuelve el artefacto guardado por notebooks/03 (diccionario con el pipeline y sus metadatos)."""
+    """Envuelve el artefacto de notebooks/nhanes/03 y los remuestreos de notebooks/nhanes/04."""
 
     def __init__(self, directorio: str | Path):
         directorio = Path(directorio)
         seleccion = json.loads((directorio / "seleccion.json").read_text(encoding="utf-8"))
-        self.archivo = seleccion["web"]
+        self.archivo = seleccion["seleccionado"]
         artefacto = joblib.load(directorio / self.archivo)
 
         pipeline = artefacto["modelo"]
         if not (isinstance(pipeline, Pipeline) and isinstance(pipeline.named_steps["modelo"], LogisticRegression)):
-            raise TypeError("La explicacion de factores requiere un pipeline de regresion logistica")
+            raise TypeError("Las contribuciones SHAP exactas y el bootstrap requieren un pipeline de regresion logistica")
 
         self.predictores: list[str] = artefacto["predictores"]
         self.metadatos = {k: artefacto[k] for k in ("algoritmo", "desenlace", "datos_entrenamiento", "fecha")}
         self._pipeline = pipeline
-        self._prep = pipeline.named_steps["prep"]
-        self._coef = pipeline.named_steps["modelo"].coef_[0]
-        self.intercepto = float(pipeline.named_steps["modelo"].intercept_[0])
-        # get_feature_names_out devuelve "continuas__edad"; se recupera el nombre del predictor
-        self._columnas = [n.split("__", 1)[1] for n in self._prep.get_feature_names_out()]
 
-    def _fila(self, datos: EvaluacionEntrada) -> pd.DataFrame:
+        p = _parametros(pipeline)
+        self._imputacion, self._media, self._escala, self._coef = (
+            np.array([p[c][i] for c in self.predictores]) for i in range(4)
+        )
+        self.intercepto = float(pipeline.named_steps["modelo"].intercept_[0])
+
+        boot = joblib.load(directorio / "bootstrap_regresion_logistica.joblib")
+        if boot["predictores"] != self.predictores:
+            raise ValueError("Los remuestreos bootstrap no corresponden a los predictores del modelo")
+        self._boot = {k: boot[k] for k in ("imputacion", "media", "escala", "coef", "intercepto")}
+        self.percentiles = boot["percentiles"]
+
+    def _vector(self, datos: EvaluacionEntrada) -> np.ndarray:
+        """Predictores en el orden del modelo; los datos que la persona no sabe quedan como NaN y se
+        imputan igual que en el entrenamiento."""
+        def num(v):
+            return np.nan if v is None else float(v)
+
         valores = {
             "edad": datos.edad,
             "hombre": 1.0 if datos.sexo == "masculino" else 0.0,
             "imc": datos.imc,
-            "cintura": datos.cintura_cm,
-            "hta": float(datos.hipertension),
-            "tabaco": float(datos.fuma),
-            "alcohol": float(datos.alcohol),
-            "frutas_dias": datos.dias_frutas,
-            "verduras_dias": datos.dias_verduras,
+            "cintura": num(datos.cintura_cm),
+            "hta": num(datos.hipertension),
+            "familiar_dm": num(datos.familiar_diabetes),
+            "actividad": num(datos.actividad_fisica),
+            "fuma": num(datos.fuma),
         }
-        return pd.DataFrame([valores])[self.predictores]
+        return np.array([valores[c] for c in self.predictores], dtype=float)
+
+    def fila(self, datos: EvaluacionEntrada) -> pd.DataFrame:
+        return pd.DataFrame([self._vector(datos)], columns=self.predictores)
 
     def predecir(self, datos: EvaluacionEntrada) -> Resultado:
-        fila = self._fila(datos)
-        probabilidad = float(self._pipeline.predict_proba(fila)[0, 1])
+        x = self._vector(datos)
 
-        # Con variables estandarizadas, coeficiente x valor estandarizado es la contribucion de cada
-        # variable al log-odds respecto de la persona promedio (equivale a SHAP en un modelo lineal).
+        # Valores SHAP exactos de un modelo lineal (en log-odds, respecto de la media del entrenamiento):
+        # coeficiente x valor estandarizado.
+        z = (np.where(np.isnan(x), self._imputacion, x) - self._media) / self._escala
+        shap = self._coef * z
+        log_odds = self.intercepto + shap.sum()
+        probabilidad = float(1 / (1 + np.exp(-log_odds)))
+
+        b = self._boot
+        xb = np.where(np.isnan(x), b["imputacion"], x)
+        p_boot = 1 / (1 + np.exp(-(((xb - b["media"]) / b["escala"] * b["coef"]).sum(axis=1) + b["intercepto"])))
+        intervalo = tuple(float(v) for v in np.percentile(p_boot, self.percentiles))
+
         contribuciones: dict[str, float] = {}
-        for columna, valor in zip(self._columnas, self._coef * self._prep.transform(fila)[0]):
+        for columna, valor in zip(self.predictores, shap):
             factor = FACTOR_DE_PREDICTOR[columna]
             contribuciones[factor] = contribuciones.get(factor, 0.0) + float(valor)
 
+        principales = sorted(
+            (k for k, v in contribuciones.items() if abs(v) >= CONTRIBUCION_MINIMA),
+            key=lambda k: abs(contribuciones[k]), reverse=True,
+        )[:MAXIMO_FACTORES]
         mostrados = [
             Factor(
-                factor=FACTORES_MOSTRADOS[clave][0],
-                valor=FACTORES_MOSTRADOS[clave][1](datos),
-                efecto="aumenta" if contribuciones[clave] > 0 else "disminuye",
-                contribucion=round(contribuciones[clave], 4),
+                clave=k,
+                factor=ETIQUETAS[k][0],
+                valor=ETIQUETAS[k][1](datos),
+                efecto="aumenta" if contribuciones[k] > 0 else "disminuye",
+                contribucion=round(contribuciones[k], 4),
             )
-            for clave in sorted(FACTORES_MOSTRADOS, key=lambda k: abs(contribuciones[k]), reverse=True)
+            for k in principales
         ]
-        return Resultado(probabilidad=probabilidad, contribuciones=contribuciones, factores_mostrados=mostrados)
+
+        perfil = Perfil(
+            edad=datos.edad, imc=datos.imc, hipertension=datos.hipertension,
+            familiar_diabetes=datos.familiar_diabetes, actividad_fisica=datos.actividad_fisica, fuma=datos.fuma,
+        )
+        return Resultado(
+            probabilidad=probabilidad,
+            intervalo=intervalo,
+            contribuciones=contribuciones,
+            factores_mostrados=mostrados,
+            recomendaciones=seleccionar(perfil, contribuciones),
+        )

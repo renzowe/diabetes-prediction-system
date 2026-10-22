@@ -18,13 +18,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Sistema web predictivo de diagnóstico autorreportado de Diabetes Mellitus",
+    title="Sistema web predictivo de HbA1c elevada",
     description=(
-        "API REST que estima la probabilidad de diagnóstico autorreportado de Diabetes Mellitus en adultos "
-        "de 30 a 69 años de Lima Metropolitana, con un modelo de regresión logística desarrollado con datos "
-        "de la ENDES 2021-2024. Prototipo de investigación: no constituye un diagnóstico médico."
+        "API REST que estima, con factores no invasivos, la probabilidad de HbA1c >= 5.7 % (compatible con "
+        "prediabetes o diabetes) en adultos de 20 a 69 años sin diagnóstico previo de diabetes ni prediabetes, "
+        "con un modelo de regresión logística desarrollado con NHANES 2007-2020. Devuelve un intervalo bootstrap, "
+        "las principales contribuciones SHAP y recomendaciones de un catálogo con fuentes. Ámbito de aplicación: "
+        "Lima Metropolitana. Prototipo de investigación: no constituye un diagnóstico médico."
     ),
-    version="2.0.0",
+    version="3.0.0",
     lifespan=lifespan,
 )
 

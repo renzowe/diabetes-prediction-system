@@ -6,31 +6,37 @@ from app.database import Base
 
 
 class Evaluacion(Base):
-    """Registro de cada evaluacion realizada con el sistema web.
+    """Registro de cada evaluacion realizada con el sistema web (modelo NHANES).
 
-    Usa una tabla nueva (evaluaciones_riesgo): la tabla anterior (evaluaciones), con los campos
-    del modelo antiguo, se conserva sin cambios en la base de datos."""
+    Usa una tabla nueva (evaluaciones_nhanes): las tablas anteriores (evaluaciones y
+    evaluaciones_riesgo), con los campos de los modelos de fases previas, se conservan sin cambios."""
 
-    __tablename__ = "evaluaciones_riesgo"
+    __tablename__ = "evaluaciones_nhanes"
 
     id = Column(Integer, primary_key=True, index=True)
     fecha = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-    # Datos de entrada (sin nombres ni documentos de identidad, Ley N.° 29733)
+    # Datos de entrada (sin nombres ni documentos de identidad, Ley N.° 29733). Las respuestas de
+    # filtro no se guardan: si la persona tiene diagnostico previo o esta embarazada no se estima.
     edad = Column(Integer, nullable=False)
     sexo = Column(String, nullable=False)
     peso_kg = Column(Float, nullable=False)
     talla_cm = Column(Float, nullable=False)
     imc = Column(Float, nullable=False)
-    cintura_cm = Column(Float, nullable=False)
+    cintura_cm = Column(Float, nullable=True)
     hipertension = Column(Boolean, nullable=False)
+    familiar_diabetes = Column(Boolean, nullable=True)
+    actividad_fisica = Column(Boolean, nullable=False)
     fuma = Column(Boolean, nullable=False)
-    alcohol = Column(Boolean, nullable=False)
-    dias_frutas = Column(Integer, nullable=False)
-    dias_verduras = Column(Integer, nullable=False)
 
-    # Resultado y rendimiento (indicador D3 de la variable independiente: tiempo de respuesta)
+    # Resultado: probabilidad, intervalo bootstrap y lo que se mostro (claves separadas por comas)
     probabilidad = Column(Float, nullable=False)
+    intervalo_inferior = Column(Float, nullable=False)
+    intervalo_superior = Column(Float, nullable=False)
+    factores_mostrados = Column(String, nullable=False)
+    recomendaciones = Column(String, nullable=False)
+
+    # Rendimiento (indicador D3 de la variable independiente: tiempo de respuesta)
     modelo_archivo = Column(String, nullable=False)
     tiempo_prediccion_ms = Column(Float, nullable=False)
 

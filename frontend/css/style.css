@@ -384,6 +384,77 @@ body {
     border-color: var(--primary);
 }
 
+/* El atributo hidden debe ganar a las reglas display de los componentes (p. ej. .toggle-group) */
+[hidden] {
+    display: none !important;
+}
+
+.result__interval {
+    font-size: 13px;
+    color: var(--ink-muted);
+}
+
+.recomendaciones {
+    padding: 0;
+    margin: 0 0 16px;
+    list-style: none;
+    counter-reset: rec;
+}
+
+.recomendacion {
+    counter-increment: rec;
+    padding: 14px 14px 12px 44px;
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+.recomendacion + .recomendacion {
+    margin-top: 10px;
+}
+
+.recomendacion::before {
+    content: counter(rec);
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--on-primary);
+    font-size: 12px;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+}
+
+.recomendacion__titulo {
+    font-weight: 500;
+}
+
+.recomendacion__texto {
+    font-size: 14px;
+    margin: 4px 0 8px;
+    line-height: 1.5;
+}
+
+.recomendacion__fuentes {
+    font-size: 12px;
+    color: var(--ink-muted);
+}
+
+.recomendacion__fuentes summary {
+    cursor: pointer;
+}
+
+.recomendacion__fuentes ul {
+    margin: 6px 0 0;
+    padding-left: 18px;
+    overflow-wrap: anywhere;
+}
+
 .callout {
     font-size: 14px;
     padding: 12px 14px;

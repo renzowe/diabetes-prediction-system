@@ -2,21 +2,36 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, computed_field, model_validator
 
+MENSAJE_FUERA_DE_ALCANCE = (
+    "Este sistema está pensado para personas sin diagnóstico previo de diabetes ni prediabetes y que no estén "
+    "embarazadas. Si ya recibió un diagnóstico, siga las indicaciones de su profesional de salud."
+)
+
 
 class EvaluacionEntrada(BaseModel):
     """Datos que ingresa la persona en el formulario. Corresponden a los predictores del modelo
-    web (docs/protocolo_analisis.md, seccion 3); el IMC se calcula a partir del peso y la talla."""
+    (docs/protocolo_nhanes.md, seccion 4), con la redaccion de las preguntas de NHANES traducida; el
+    IMC se calcula a partir del peso y la talla."""
 
-    edad: int = Field(..., ge=30, le=69, description="Edad en años (el modelo se desarrolló con adultos de 30 a 69 años)")
+    # Pregunta de filtro (criterios de seleccion del protocolo, seccion 3)
+    diagnostico_previo: bool = Field(
+        ..., description="¿Algún médico le ha dicho que tiene diabetes, prediabetes o azúcar alta en la sangre, o usa insulina o pastillas para la diabetes?"
+    )
+    embarazo: bool = Field(False, description="¿Está embarazada actualmente? (solo mujeres)")
+
+    edad: int = Field(..., ge=20, le=69, description="Edad en años (el modelo se desarrolló con adultos de 20 a 69 años)")
     sexo: Literal["femenino", "masculino"]
     peso_kg: float = Field(..., ge=30, le=250, description="Peso en kilogramos")
     talla_cm: float = Field(..., ge=120, le=220, description="Talla en centímetros")
-    cintura_cm: float = Field(..., ge=50, le=170, description="Perímetro abdominal en centímetros")
-    hipertension: bool = Field(..., description="¿Algún médico le ha diagnosticado hipertensión arterial?")
-    fuma: bool = Field(..., description="¿Ha fumado cigarrillos en los últimos 12 meses?")
-    alcohol: bool = Field(..., description="¿Ha consumido bebidas alcohólicas en los últimos 12 meses?")
-    dias_frutas: int = Field(..., ge=0, le=7, description="Días de la última semana en que comió frutas")
-    dias_verduras: int = Field(..., ge=0, le=7, description="Días de la última semana en que comió ensalada de verduras")
+    cintura_cm: Optional[float] = Field(None, ge=50, le=180, description="Perímetro abdominal en centímetros (opcional)")
+    hipertension: bool = Field(..., description="¿Algún médico le ha dicho que tiene presión alta (hipertensión)?")
+    familiar_diabetes: Optional[bool] = Field(
+        ..., description="¿Su padre, madre, algún hermano o hermana ha sido diagnosticado con diabetes? (null = no sabe)"
+    )
+    actividad_fisica: bool = Field(
+        ..., description="En una semana típica, ¿realiza deportes, ejercicios o actividades recreativas moderadas o vigorosas durante al menos 10 minutos seguidos?"
+    )
+    fuma: bool = Field(..., description="¿Fuma cigarrillos actualmente, todos los días o algunos días?")
 
     # Opcional: solo para vincular la evaluación con la encuesta SUS de un mismo participante
     participante_codigo: Optional[str] = Field(None, max_length=20)
@@ -27,7 +42,9 @@ class EvaluacionEntrada(BaseModel):
         return round(self.peso_kg / (self.talla_cm / 100) ** 2, 2)
 
     @model_validator(mode="after")
-    def validar_imc(self):
+    def validar(self):
+        if self.diagnostico_previo or (self.embarazo and self.sexo == "femenino"):
+            raise ValueError(MENSAJE_FUERA_DE_ALCANCE)
         if not 12 <= self.imc <= 70:
             raise ValueError(f"El IMC calculado ({self.imc}) está fuera del rango plausible (12-70); revise el peso y la talla")
         return self
@@ -35,16 +52,17 @@ class EvaluacionEntrada(BaseModel):
     model_config = {
         "json_schema_extra": {
             "example": {
+                "diagnostico_previo": False,
+                "embarazo": False,
                 "edad": 52,
                 "sexo": "femenino",
                 "peso_kg": 72.5,
                 "talla_cm": 156,
                 "cintura_cm": 98,
                 "hipertension": False,
+                "familiar_diabetes": True,
+                "actividad_fisica": False,
                 "fuma": False,
-                "alcohol": True,
-                "dias_frutas": 4,
-                "dias_verduras": 2,
             }
         }
     }
@@ -54,7 +72,14 @@ class FactorSalida(BaseModel):
     factor: str
     valor: str = Field(..., description="Dato ingresado por la persona, en lenguaje sencillo")
     efecto: Literal["aumenta", "disminuye"] = Field(..., description="Dirección respecto de la persona promedio de la población de referencia")
-    contribucion: float = Field(..., description="Contribución al log-odds respecto de la persona promedio de la población de referencia")
+    contribucion: float = Field(..., description="Valor SHAP en log-odds respecto de la persona promedio de la población de referencia")
+
+
+class RecomendacionSalida(BaseModel):
+    id: str
+    titulo: str
+    texto: str
+    fuentes: list[str] = Field(..., description="Referencias completas de las guías que sustentan el mensaje")
 
 
 class ModeloSalida(BaseModel):
@@ -65,14 +90,18 @@ class ModeloSalida(BaseModel):
 
 
 class EvaluacionSalida(BaseModel):
-    """Resultado devuelto al frontend. No incluye categorías de riesgo: no existen umbrales
-    clínicos validados para una probabilidad de diagnóstico autorreportado (plan de tesis, 4.6.1)."""
+    """Resultado devuelto al frontend. No incluye categorías de riesgo (plan de tesis, 4.6.1)."""
 
     id: int
-    probabilidad: float = Field(..., description="Probabilidad estimada de diagnóstico autorreportado de DM (0-1)")
-    prevalencia_referencia: float = Field(..., description="Proporción de diagnóstico autorreportado en la población de referencia (ENDES 2021-2024)")
+    probabilidad: float = Field(..., description="Probabilidad estimada de HbA1c >= 5.7 % (0-1)")
+    intervalo: tuple[float, float] = Field(..., description="Intervalo bootstrap del 95 % de la probabilidad estimada")
+    nota_intervalo: str
+    prevalencia_referencia: float = Field(..., description="Proporción ponderada de HbA1c >= 5.7 % en la población de referencia (NHANES, desarrollo)")
     imc: float
-    factores: list[FactorSalida] = Field(..., description="Solo los factores que se muestran al usuario (edad, sexo, composición corporal e hipertensión)")
+    factores: list[FactorSalida] = Field(..., description="Principales contribuciones SHAP (hasta 3, con |SHAP| >= 0.05)")
     nota_factores: str
+    recomendaciones: list[RecomendacionSalida] = Field(..., description="Dos o tres mensajes del catálogo de recomendaciones")
+    nota_recomendaciones: str
+    version_catalogo: str
     mensaje: str
     modelo: ModeloSalida

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estimación de diagnóstico de diabetes</title>
+    <title>Estimación de HbA1c elevada</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
@@ -18,21 +18,22 @@
 
         <header class="masthead">
             <span class="masthead__mark" aria-hidden="true"></span>
-            <span class="masthead__name">Estimación DM · ENDES</span>
+            <span class="masthead__name">Estimación HbA1c · NHANES</span>
         </header>
 
         <!-- PANTALLA 1: INICIO -->
         <section id="screen-start" class="screen">
-            <h1 class="display">Estimación de la probabilidad de diagnóstico de diabetes</h1>
+            <h1 class="display">¿Qué tan probable es que tenga el azúcar elevado sin saberlo?</h1>
             <p class="lede">
-                Responde 10 preguntas sobre tu edad, tus medidas corporales y algunos hábitos. El sistema
-                estimará qué tanto se parece tu perfil al de las personas que, en la Encuesta Demográfica
-                y de Salud Familiar (ENDES), reportaron haber recibido un diagnóstico de diabetes.
+                Responde unas preguntas sobre tu edad, tus medidas corporales y algunos antecedentes. El sistema
+                estimará la probabilidad de que tu hemoglobina glicosilada (HbA1c) sea de 5.7 % o más, un valor
+                compatible con prediabetes o diabetes, sin necesidad de un análisis de sangre.
             </p>
 
             <p class="callout">
-                Necesitarás una <strong>cinta métrica</strong> para medir tu perímetro abdominal.
-                Está pensado para adultos de 30 a 69 años.
+                Está pensado para adultos de <strong>20 a 69 años</strong> que no han recibido un diagnóstico de
+                diabetes ni de prediabetes. Si tienes una <strong>cinta métrica</strong>, podrás registrar tu
+                perímetro abdominal.
             </p>
 
             <div class="field">
@@ -49,14 +50,37 @@
             </p>
         </section>
 
-        <!-- PANTALLA 2: FORMULARIO -->
+        <!-- PANTALLA 2: PREGUNTA DE FILTRO -->
+        <section id="screen-filter" class="screen" hidden>
+            <h2 class="section-title">Antes de empezar</h2>
+            <fieldset class="toggle-group">
+                <legend>¿Algún médico le ha dicho que tiene diabetes, prediabetes o azúcar alta en la sangre, o usa
+                    insulina o pastillas para la diabetes?</legend>
+                <label class="toggle"><input type="radio" name="diagnostico_previo" value="1"><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="diagnostico_previo" value="0"><span>No</span></label>
+            </fieldset>
+            <p class="error" id="filter-error" hidden>Selecciona una respuesta para continuar.</p>
+            <button type="button" class="btn btn--primary" id="btn-filter">Continuar</button>
+        </section>
+
+        <!-- PANTALLA: FUERA DEL ALCANCE -->
+        <section id="screen-out" class="screen" hidden>
+            <h2 class="section-title">Este sistema no aplica a su caso</h2>
+            <p class="result__explain" id="out-message">
+                Este sistema está pensado para personas sin diagnóstico previo de diabetes ni prediabetes y que no
+                estén embarazadas. Si ya recibió un diagnóstico, siga las indicaciones de su profesional de salud.
+            </p>
+            <button type="button" class="btn btn--ghost btn-reset">Volver al inicio</button>
+        </section>
+
+        <!-- PANTALLA 3: FORMULARIO -->
         <form id="screen-form" class="screen" hidden>
             <h2 class="section-title">Datos generales</h2>
             <div class="grid">
                 <div class="field">
                     <label for="edad">Edad (años)</label>
-                    <input type="number" id="edad" min="30" max="69" step="1" required>
-                    <span class="hint">Entre 30 y 69 años</span>
+                    <input type="number" id="edad" min="20" max="69" step="1" required>
+                    <span class="hint">Entre 20 y 69 años</span>
                 </div>
                 <div class="field">
                     <label for="sexo">Sexo</label>
@@ -67,6 +91,12 @@
                     </select>
                 </div>
             </div>
+
+            <fieldset class="toggle-group" id="grupo-embarazo" hidden>
+                <legend>¿Está embarazada actualmente?</legend>
+                <label class="toggle"><input type="radio" name="embarazo" value="1"><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="embarazo" value="0"><span>No</span></label>
+            </fieldset>
 
             <hr class="rule">
 
@@ -86,10 +116,10 @@
                     <span class="hint">Se calcula automáticamente a partir de tu peso y talla</span>
                 </div>
                 <div class="field">
-                    <label for="cintura">Perímetro abdominal (cm)</label>
-                    <input type="number" id="cintura" min="50" max="170" step="0.1" required>
+                    <label for="cintura">Perímetro abdominal (cm) <span class="optional">(opcional)</span></label>
+                    <input type="number" id="cintura" min="50" max="180" step="0.1">
                     <span class="hint">De pie, con la cinta alrededor de la cintura a la altura del ombligo, sin
-                        ajustarla</span>
+                        ajustarla. Si no tienes cinta métrica, déjalo vacío.</span>
                 </div>
             </div>
 
@@ -98,40 +128,38 @@
             <h2 class="section-title">Antecedentes y hábitos</h2>
 
             <fieldset class="toggle-group">
-                <legend>¿Alguna vez en su vida un médico le ha diagnosticado hipertensión arterial o presión alta?</legend>
+                <legend>¿Algún médico u otro profesional de salud le ha dicho que tiene presión alta (hipertensión)?</legend>
                 <label class="toggle"><input type="radio" name="hipertension" value="1" required><span>Sí</span></label>
                 <label class="toggle"><input type="radio" name="hipertension" value="0"><span>No</span></label>
             </fieldset>
 
             <fieldset class="toggle-group">
-                <legend>En los últimos 12 meses, ¿ha fumado cigarrillos?</legend>
-                <label class="toggle"><input type="radio" name="fuma" value="1" required><span>Sí</span></label>
-                <label class="toggle"><input type="radio" name="fuma" value="0"><span>No</span></label>
+                <legend>¿Su padre, su madre o algún hermano o hermana ha sido diagnosticado con diabetes?</legend>
+                <label class="toggle"><input type="radio" name="familiar_diabetes" value="1" required><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="familiar_diabetes" value="0"><span>No</span></label>
+                <label class="toggle"><input type="radio" name="familiar_diabetes" value="ns"><span>No sé</span></label>
             </fieldset>
 
             <fieldset class="toggle-group">
-                <legend>En los últimos 12 meses, ¿ha consumido alguna bebida alcohólica o licor?</legend>
-                <label class="toggle"><input type="radio" name="alcohol" value="1" required><span>Sí</span></label>
-                <label class="toggle"><input type="radio" name="alcohol" value="0"><span>No</span></label>
+                <legend>En una semana típica, ¿practica deportes, ejercicios o actividades recreativas moderadas o
+                    vigorosas (por ejemplo, caminar a paso rápido, nadar, montar bicicleta, jugar fútbol) durante al
+                    menos 10 minutos seguidos?</legend>
+                <label class="toggle"><input type="radio" name="actividad_fisica" value="1" required><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="actividad_fisica" value="0"><span>No</span></label>
             </fieldset>
 
-            <div class="grid">
-                <div class="field">
-                    <label for="dias-frutas">En los últimos 7 días, ¿cuántos días comió frutas?</label>
-                    <select id="dias-frutas" class="select-dias" required></select>
-                </div>
-                <div class="field">
-                    <label for="dias-verduras">En los últimos 7 días, ¿cuántos días comió ensalada de verduras?</label>
-                    <select id="dias-verduras" class="select-dias" required></select>
-                </div>
-            </div>
+            <fieldset class="toggle-group">
+                <legend>¿Fuma cigarrillos actualmente, ya sea todos los días o algunos días?</legend>
+                <label class="toggle"><input type="radio" name="fuma" value="1" required><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="fuma" value="0"><span>No</span></label>
+            </fieldset>
 
             <p class="error" id="form-error" hidden></p>
 
             <button type="button" class="btn btn--primary" id="btn-submit">Obtener estimación</button>
         </form>
 
-        <!-- PANTALLA 3: RESULTADO -->
+        <!-- PANTALLA 4: RESULTADO -->
         <section id="screen-result" class="screen" hidden>
             <h2 class="section-title">Tu resultado</h2>
 
@@ -142,22 +170,30 @@
                 </svg>
                 <div class="result__figures">
                     <span class="result__pct" id="result-pct">0%</span>
-                    <span class="result__caption">Probabilidad estimada</span>
+                    <span class="result__caption">Probabilidad estimada de HbA1c ≥ 5.7 %</span>
+                    <span class="result__interval" id="result-interval"></span>
                 </div>
             </div>
 
-            <p class="result__reference" id="result-reference"></p>
             <p class="result__explain" id="result-message"></p>
+            <p class="result__reference" id="result-reference"></p>
+            <p class="section-note" id="result-nota-intervalo"></p>
 
             <hr class="rule">
 
-            <h3 class="subsection-title">Cómo combinó el modelo tus datos</h3>
+            <h3 class="subsection-title">Qué datos influyeron más en tu estimación</h3>
             <ul class="factores" id="result-factores"></ul>
             <p class="section-note" id="result-nota"></p>
 
+            <hr class="rule">
+
+            <h3 class="subsection-title">Recomendaciones</h3>
+            <ol class="recomendaciones" id="result-recomendaciones"></ol>
+            <p class="section-note" id="result-nota-recomendaciones"></p>
+
             <p class="result__meta" id="result-meta"></p>
 
-            <button type="button" class="btn btn--ghost" id="btn-reset">Nueva evaluación</button>
+            <button type="button" class="btn btn--ghost btn-reset">Nueva evaluación</button>
             <a href="#" id="link-sus" class="btn btn--primary btn--link" hidden>Completa la encuesta de usabilidad</a>
         </section>
 

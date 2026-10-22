@@ -6,8 +6,9 @@ COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/app ./app
-# Solo los modelos congelados en notebooks/03 (models/v2); el modelo web se elige con seleccion.json
-COPY models/v2 ./models/v2
+# Solo el modelo NHANES congelado (notebooks/nhanes/03) y su bootstrap (notebooks/nhanes/04);
+# el modelo se elige con seleccion.json
+COPY models/nhanes ./models/nhanes
 
 EXPOSE 8000
 
