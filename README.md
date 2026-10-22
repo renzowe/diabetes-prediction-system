@@ -1,8 +1,13 @@
-# Sistema de predicción de riesgo de Diabetes Mellitus Tipo 2
+# Sistema web predictivo de HbA1c elevada
 
-Sistema web que aplica un modelo de Machine Learning para estimar el riesgo de Diabetes
-Mellitus Tipo 2 en adultos de 30 a 64 años, desarrollado como parte de un trabajo de tesis
-de Ingeniería de Sistemas.
+Sistema web que estima, solo con factores no invasivos, la probabilidad de HbA1c ≥ 5.7 %
+(compatible con prediabetes o diabetes) en adultos de 20 a 69 años sin diagnóstico previo de
+diabetes ni prediabetes. El modelo se desarrolló con datos de NHANES 2007–marzo 2020 y el
+sistema se aplica en Lima Metropolitana. Es parte de una tesis de Ingeniería de Sistemas (UNFV).
+
+El resultado muestra la probabilidad con su intervalo bootstrap, las principales contribuciones
+de los datos de la persona (valores SHAP) y dos o tres recomendaciones preventivas de un
+catálogo con fuentes (`docs/catalogo_recomendaciones.md`). No es un diagnóstico.
 
 ## Arquitectura
 
@@ -15,15 +20,20 @@ independientes orquestados con Docker Compose:
 | Lógica de negocio | FastAPI (API REST) | Validación de datos, ejecución del modelo predictivo |
 | Persistencia | PostgreSQL | Almacenamiento de evaluaciones y resultados de usabilidad |
 
-El modelo predictivo (Random Forest) se entrena por separado en los notebooks y se exporta
-como artefacto serializado (`.joblib`), que el backend carga al iniciar.
+El modelo predictivo (regresión logística, elegida frente a Random Forest, XGBoost y LightGBM
+según el protocolo) se entrena en los notebooks y se congela en `models/nhanes/` junto con sus
+remuestreos bootstrap; el backend los carga al iniciar.
 
 ## Estructura del proyecto
 
 ```
 diabetes-prediction-system/
-├── notebooks/          Exploración de datos y entrenamiento del modelo (Jupyter)
-├── models/             Modelo entrenado exportado (.joblib)
+├── docs/               Protocolos de análisis, catálogo de recomendaciones y borradores
+├── notebooks/nhanes/   Integración, partición, factores, entrenamiento, bootstrap y evaluación final
+├── notebooks/          (01–06) Fase exploratoria previa con ENDES
+├── particion/          Partición desarrollo/prueba y huellas de los archivos fuente
+├── models/nhanes/      Modelos congelados (.joblib), bootstrap y selección
+├── resultados/nhanes/  Tablas y figuras de cada notebook
 ├── backend/
 │   ├── app/            Código de la API (routers, schemas, servicios, modelos ORM)
 │   └── tests/          Pruebas automatizadas (pytest)
@@ -35,7 +45,9 @@ diabetes-prediction-system/
 ## Requisitos
 
 - Docker y Docker Compose
-- (Opcional, para los notebooks) Python 3.11+ con Jupyter
+- (Opcional, para los notebooks) Python 3.14 con Jupyter y las dependencias de
+  `notebooks/requirements.txt`. Los datos de NHANES se descargan automáticamente del CDC al
+  ejecutar `notebooks/nhanes/01_integracion_particion.ipynb`
 
 ## Instalación y ejecución
 
@@ -65,12 +77,13 @@ diabetes-prediction-system/
 
 | Método | Ruta | Acceso | Descripción |
 |---|---|---|---|
-| POST | `/predict` | Público | Genera la predicción de riesgo y registra la evaluación |
+| POST | `/predict` | Público | Estima la probabilidad con su intervalo, contribuciones y recomendaciones, y registra la evaluación |
 | POST | `/sus` | Público | Registra las respuestas de la escala de usabilidad SUS |
 | GET | `/resultados/evaluaciones` | Requiere clave | Lista las evaluaciones registradas |
 | GET | `/resultados/evaluaciones/export` | Requiere clave | Descarga las evaluaciones en formato CSV |
 | GET | `/resultados/sus` | Requiere clave | Lista los resultados de usabilidad |
 | GET | `/resultados/sus/export` | Requiere clave | Descarga los resultados SUS en formato CSV |
+| GET | `/resultados/resumen` | Requiere clave | Indicadores de rendimiento (tiempo de respuesta) y usabilidad (SUS) |
 
 Los endpoints marcados como "requiere clave" están protegidos mediante una clave compartida
 que se envía en el encabezado `X-API-Key`, con el fin de evitar que los datos de salud
@@ -87,9 +100,16 @@ almacenados en PostgreSQL.
 
 ## Notebooks
 
-- `notebooks/01_data_exploration.ipynb`: comprensión y análisis exploratorio de los datos.
-- `notebooks/02_model_training.ipynb`: preparación de datos, balanceo de clases, entrenamiento,
-  comparación de modelos y exportación del modelo final.
+Fase NHANES (`notebooks/nhanes/`), según `docs/protocolo_nhanes.md`:
+
+1. `01_integracion_particion`: descarga, integración y partición por conglomerados.
+2. `02_factores_asociados`: OE1 / HE1 (solo desarrollo).
+3. `03_entrenamiento_modelo`: comparación de algoritmos, selección, calibración y congelamiento (OE2).
+4. `04_intervalos_bootstrap`: intervalos individuales por bootstrap por conglomerado.
+5. `05_evaluacion_final`: evaluación única con el conjunto de prueba reservado (OE2, OE3).
+
+Los notebooks 01–06 de la carpeta `notebooks/` corresponden a la fase exploratoria previa con
+la ENDES (`docs/protocolo_analisis.md`), que motivó el cambio a NHANES.
 
 ## Nota sobre los datos
 
