@@ -14,7 +14,7 @@ sección 15 con fecha y motivo. El protocolo de la fase anterior (ENDES) está e
 | Revisión de documentación, 2005–2006 a 2021–2023 | Solo páginas de documentación (no datos) | Disponibilidad de `MCQ300C`, `PAQ650/665`, `DIQ160` y HbA1c | Se usan los ciclos 2007–2008 a 2017–marzo 2020 |
 
 Ninguna exploración usó datos de los ciclos 2007–2008 a 2015–2016, de los que proviene el conjunto
-de prueba. La meta de AUC y los criterios de calibración (sección 14) se fijaron el 2026-10-22,
+de prueba. La meta de AUC y los criterios de calibración (sección 14) se fijaron el 2026-10-21,
 antes de descargar esos ciclos.
 
 ## 1. Desenlace
@@ -139,7 +139,7 @@ tabaquismo, con la redacción de NHANES traducida. Salida: probabilidad, interva
 mostrados y mensaje de alcance. Los factores que se muestran se deciden con el desarrollo (HE1 y
 SHAP), antes de la evaluación final.
 
-## 14. Metas (fijadas el 2026-10-22)
+## 14. Metas (fijadas el 2026-10-21)
 
 - AUC-ROC ≥ 0.75 en el conjunto de prueba.
 - Calibración adecuada: pendiente entre 0.8 y 1.2, razón O/E entre 0.9 y 1.1 y Brier menor que el
@@ -147,9 +147,12 @@ SHAP), antes de la evaluación final.
 
 ## 15. Registro de cambios
 
+Todas las fechas están en hora de Lima (UTC−5).
+
 | Fecha | Cambio | Motivo |
 |---|---|---|
-| 2026-10-22 | Versión inicial | — |
+| 2026-10-21 | Versión inicial | — |
 | 2026-10-21 | En 2007–2008 la pregunta de pastillas para la diabetes se llama `DID070` (misma pregunta y códigos que `DIQ070`); se renombra a `DIQ070` al leer `DIQ_E` | El nombre no existe en ese ciclo; se detectó al integrar, antes de la partición. No cambia ningún criterio |
 | 2026-10-21 | Partición generada (`notebooks/nhanes/01_integracion_particion.ipynb`): 203 conglomerados, 40 en prueba (19.7 %); 66,148 participantes en `DEMO`, 0 `SEQN` duplicados. SHA-256 de `particion/particion_nhanes.csv`: `2f05d104399e7e063d9f142d0532ccced9b500ba7cf5f93611f56980fd087fcd`. URL y SHA-256 de cada archivo fuente en `particion/fuentes_nhanes.csv` | Sección 5 |
 | 2026-10-21 | Tras los criterios de selección: desarrollo 18,264 participantes (163 conglomerados); prueba 4,627 (40 conglomerados, reservado). SHA-256 de `data/processed/nhanes_prueba.csv`: `c48492938873def3d096e59c8d465e32843fdd574d3dd2b349e90754d58ee62c` | Permite comprobar en la evaluación final que el archivo de prueba no cambió |
+| 2026-10-21 | Corrección de fechas: la versión inicial, la meta de AUC y los criterios de calibración figuraban con fecha 2026-10-22, que era la fecha en UTC; en hora de Lima corresponde a 2026-10-21. El commit del protocolo (`4e2fb70`, etiqueta `protocolo-nhanes-v1`) se registró el 2026-10-21 a las 21:47:15 (UTC−5), es decir, el 2026-10-22 a las 02:47:15 UTC | Solo se corrige la fecha. **No cambió el contenido del protocolo**: criterios, partición, algoritmos, metas y calibración son los mismos de `protocolo-nhanes-v1` |
