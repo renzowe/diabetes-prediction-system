@@ -1,0 +1,5 @@
+criterio,valor,cumple
+AUC-ROC >= 0.75,0.744 (IC95 0.730–0.757),No
+Pendiente de calibración entre 0.8 y 1.2,0.98 (IC95 0.91–1.05),Sí
+Razón O/E entre 0.9 y 1.1,1.015 (IC95 0.95–1.08),Sí
+Brier menor que el del modelo nulo,0.1687 frente a 0.1957,Sí

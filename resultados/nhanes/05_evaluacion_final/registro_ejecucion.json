@@ -1,0 +1,17 @@
+{
+  "modo": "final",
+  "inicio": "2026-10-21T23:23:49",
+  "commit": "aa31a1f",
+  "datos": "nhanes_prueba.csv",
+  "datos_sha256": "c48492938873def3d096e59c8d465e32843fdd574d3dd2b349e90754d58ee62c",
+  "modelos_sha256": {
+    "regresion_logistica.joblib": "fa1be5d6a0ab00640f41549cd27725aa975f555fd55e02ffb2e434a57d41dd1b",
+    "random_forest.joblib": "cb8313814e6b276f347699b448c7904be173b8d41e6de045c8c493789905fb4b",
+    "xgboost.joblib": "79c170f4c7e2972fd7cc3c899ed2347f1bcfafcc861529a086b1cebfc8682b83",
+    "lightgbm.joblib": "2059531018f27a9467f6232e007ba25629f098c729431e58945ffaf5254d2bfb"
+  },
+  "estado": "completa",
+  "fin": "2026-10-21T23:26:53",
+  "modelo_seleccionado": "Regresi\u00f3n log\u00edstica",
+  "AUC_ROC_seleccionado": 0.7436
+}
