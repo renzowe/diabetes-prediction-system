@@ -31,6 +31,7 @@ diabetes-prediction-system/
 ├── docs/               Protocolos de análisis, catálogo de recomendaciones y borradores
 ├── notebooks/nhanes/   Integración, partición, factores, entrenamiento, bootstrap y evaluación final
 ├── particion/          Partición desarrollo/prueba y huellas de los archivos fuente
+├── juicio_expertos/    Ítems, plantilla de calificaciones y ficha de validación (V de Aiken en notebooks/juicio_expertos)
 ├── models/nhanes/      Modelos congelados (.joblib), bootstrap y selección
 ├── resultados/nhanes/  Tablas y figuras de cada notebook
 ├── backend/
