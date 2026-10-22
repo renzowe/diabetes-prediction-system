@@ -30,8 +30,10 @@ reporte_pruebas.txt
 /ENDES/
 /Diccionario_BD/
 /1036-Modulo1640/
-# Datos derivados generados por ml/integrar_endes.py
+# Datos derivados generados por los notebooks
 /data/
+# Dataset BRFSS usado solo para comparaciones exploratorias
+/diabetes_012_health_indicators_BRFSS2015.csv
 
 # Docker / base de datos local
 postgres_data/

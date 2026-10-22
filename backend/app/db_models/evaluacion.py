@@ -1,33 +1,37 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import Column, Integer, Float, String, DateTime
+from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String
 
 from app.database import Base
 
 
 class Evaluacion(Base):
-    """Registro de cada evaluacion de riesgo realizada (manual o mediante el sistema)."""
+    """Registro de cada evaluacion realizada con el sistema web.
 
-    __tablename__ = "evaluaciones"
+    Usa una tabla nueva (evaluaciones_riesgo): la tabla anterior (evaluaciones), con los campos
+    del modelo antiguo, se conserva sin cambios en la base de datos."""
+
+    __tablename__ = "evaluaciones_riesgo"
 
     id = Column(Integer, primary_key=True, index=True)
     fecha = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-    # Datos de entrada
+    # Datos de entrada (sin nombres ni documentos de identidad, Ley N.° 29733)
     edad = Column(Integer, nullable=False)
-    genero = Column(String, nullable=False)
-    hipertension = Column(Integer, nullable=False)
-    enfermedad_cardiaca = Column(Integer, nullable=False)
-    historial_tabaquismo = Column(String, nullable=False)
+    sexo = Column(String, nullable=False)
+    peso_kg = Column(Float, nullable=False)
+    talla_cm = Column(Float, nullable=False)
     imc = Column(Float, nullable=False)
-    hba1c = Column(Float, nullable=False)
-    glucosa = Column(Float, nullable=False)
+    cintura_cm = Column(Float, nullable=False)
+    hipertension = Column(Boolean, nullable=False)
+    fuma = Column(Boolean, nullable=False)
+    alcohol = Column(Boolean, nullable=False)
+    dias_frutas = Column(Integer, nullable=False)
+    dias_verduras = Column(Integer, nullable=False)
 
-    # Resultado del modelo
-    prediccion = Column(Integer, nullable=False)          # 0 = sin riesgo, 1 = con riesgo
-    probabilidad = Column(Float, nullable=False)          # probabilidad estimada (0-1)
+    # Resultado y rendimiento (indicador D3 de la variable independiente: tiempo de respuesta)
+    probabilidad = Column(Float, nullable=False)
+    modelo_archivo = Column(String, nullable=False)
+    tiempo_prediccion_ms = Column(Float, nullable=False)
 
-    # Metadatos para el diseno pretest-postest
-    momento = Column(String, nullable=True)               # 'manual' | 'sistema'
-    tiempo_segundos = Column(Float, nullable=True)
     participante_codigo = Column(String, nullable=True)

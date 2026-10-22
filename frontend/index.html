@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluación de riesgo de diabetes tipo 2</title>
+    <title>Estimación de diagnóstico de diabetes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
@@ -18,26 +18,34 @@
 
         <header class="masthead">
             <span class="masthead__mark" aria-hidden="true"></span>
-            <span class="masthead__name">Tamizaje DM2</span>
+            <span class="masthead__name">Estimación DM · ENDES</span>
         </header>
 
         <!-- PANTALLA 1: INICIO -->
         <section id="screen-start" class="screen">
-            <h1 class="display">Evaluación de riesgo de<br>diabetes tipo 2</h1>
+            <h1 class="display">Estimación de la probabilidad de diagnóstico de diabetes</h1>
             <p class="lede">
-                A continuación se te harán algunas preguntas sobre tu edad, tus indicadores clínicos
-                y tus hábitos. El sistema estimará tu nivel de riesgo en unos segundos.
+                Responde 10 preguntas sobre tu edad, tus medidas corporales y algunos hábitos. El sistema
+                estimará qué tanto se parece tu perfil al de las personas que, en la Encuesta Demográfica
+                y de Salud Familiar (ENDES), reportaron haber recibido un diagnóstico de diabetes.
+            </p>
+
+            <p class="callout">
+                Necesitarás una <strong>cinta métrica</strong> para medir tu perímetro abdominal.
+                Está pensado para adultos de 30 a 69 años.
             </p>
 
             <div class="field">
-                <label for="codigo-participante">Código de participante</label>
-                <input type="text" id="codigo-participante" placeholder="Ej. P01" autocomplete="off">
+                <label for="codigo-participante">Código de participante <span class="optional">(opcional)</span></label>
+                <input type="text" id="codigo-participante" placeholder="Ej. P01" maxlength="20" autocomplete="off">
+                <span class="hint">Solo si participas en la evaluación de usabilidad del sistema</span>
             </div>
 
-            <button type="button" class="btn btn--primary" id="btn-start">Comenzar evaluación</button>
+            <button type="button" class="btn btn--primary" id="btn-start">Comenzar</button>
 
             <p class="disclaimer">
-                Este resultado es una estimación estadística y no constituye un diagnóstico médico.
+                Prototipo de investigación. El resultado es una estimación estadística y no constituye un
+                diagnóstico médico.
             </p>
         </section>
 
@@ -46,33 +54,31 @@
             <h2 class="section-title">Datos generales</h2>
             <div class="grid">
                 <div class="field">
-                    <label for="edad">Edad</label>
-                    <input type="number" id="edad" min="30" max="64" required>
-                    <span class="hint">Entre 30 y 64 años</span>
+                    <label for="edad">Edad (años)</label>
+                    <input type="number" id="edad" min="30" max="69" step="1" required>
+                    <span class="hint">Entre 30 y 69 años</span>
                 </div>
                 <div class="field">
-                    <label for="genero">Sexo</label>
-                    <select id="genero" required>
-                        <option value="Female">Femenino</option>
-                        <option value="Male">Masculino</option>
-                        <option value="Other">Otro</option>
+                    <label for="sexo">Sexo</label>
+                    <select id="sexo" required>
+                        <option value="" selected disabled>Selecciona</option>
+                        <option value="femenino">Mujer</option>
+                        <option value="masculino">Hombre</option>
                     </select>
                 </div>
             </div>
 
             <hr class="rule">
 
-            <h2 class="section-title">Indicadores clínicos</h2>
-            <p class="section-note">Si no conoces alguno de estos valores, revisa tu último examen de laboratorio.</p>
-
+            <h2 class="section-title">Medidas corporales</h2>
             <div class="grid">
                 <div class="field">
                     <label for="peso">Peso (kg)</label>
-                    <input type="number" id="peso" min="30" max="300" step="0.1" required>
+                    <input type="number" id="peso" min="30" max="250" step="0.1" required>
                 </div>
                 <div class="field">
                     <label for="talla">Talla (cm)</label>
-                    <input type="number" id="talla" min="120" max="230" step="0.1" required>
+                    <input type="number" id="talla" min="120" max="220" step="0.1" required>
                 </div>
                 <div class="field">
                     <label>Índice de masa corporal (IMC)</label>
@@ -80,40 +86,49 @@
                     <span class="hint">Se calcula automáticamente a partir de tu peso y talla</span>
                 </div>
                 <div class="field">
-                    <label for="glucosa">Glucosa en sangre (mg/dL)</label>
-                    <input type="number" id="glucosa" min="50" max="400" required>
-                </div>
-                <div class="field">
-                    <label for="hba1c">Nivel de HbA1c (%)</label>
-                    <input type="number" id="hba1c" min="3" max="15" step="0.1" required>
-                </div>
-                <div class="field">
-                    <label for="tabaquismo">Historial de tabaquismo</label>
-                    <select id="tabaquismo" required>
-                        <option value="never">Nunca he fumado</option>
-                        <option value="former">Fumé antes, ya no</option>
-                        <option value="not current">No fumo actualmente</option>
-                        <option value="current">Fumo actualmente</option>
-                        <option value="No Info">Prefiero no decir</option>
-                    </select>
+                    <label for="cintura">Perímetro abdominal (cm)</label>
+                    <input type="number" id="cintura" min="50" max="170" step="0.1" required>
+                    <span class="hint">De pie, con la cinta alrededor de la cintura a la altura del ombligo, sin
+                        ajustarla</span>
                 </div>
             </div>
 
+            <hr class="rule">
+
+            <h2 class="section-title">Antecedentes y hábitos</h2>
+
             <fieldset class="toggle-group">
-                <legend>¿Tienes hipertensión arterial?</legend>
-                <label class="toggle"><input type="radio" name="hipertension" value="1"><span>Sí</span></label>
-                <label class="toggle"><input type="radio" name="hipertension" value="0" checked><span>No</span></label>
+                <legend>¿Alguna vez en su vida un médico le ha diagnosticado hipertensión arterial o presión alta?</legend>
+                <label class="toggle"><input type="radio" name="hipertension" value="1" required><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="hipertension" value="0"><span>No</span></label>
             </fieldset>
 
             <fieldset class="toggle-group">
-                <legend>¿Tienes alguna enfermedad cardiovascular?</legend>
-                <label class="toggle"><input type="radio" name="cardiaca" value="1"><span>Sí</span></label>
-                <label class="toggle"><input type="radio" name="cardiaca" value="0" checked><span>No</span></label>
+                <legend>En los últimos 12 meses, ¿ha fumado cigarrillos?</legend>
+                <label class="toggle"><input type="radio" name="fuma" value="1" required><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="fuma" value="0"><span>No</span></label>
             </fieldset>
+
+            <fieldset class="toggle-group">
+                <legend>En los últimos 12 meses, ¿ha consumido alguna bebida alcohólica o licor?</legend>
+                <label class="toggle"><input type="radio" name="alcohol" value="1" required><span>Sí</span></label>
+                <label class="toggle"><input type="radio" name="alcohol" value="0"><span>No</span></label>
+            </fieldset>
+
+            <div class="grid">
+                <div class="field">
+                    <label for="dias-frutas">En los últimos 7 días, ¿cuántos días comió frutas?</label>
+                    <select id="dias-frutas" class="select-dias" required></select>
+                </div>
+                <div class="field">
+                    <label for="dias-verduras">En los últimos 7 días, ¿cuántos días comió ensalada de verduras?</label>
+                    <select id="dias-verduras" class="select-dias" required></select>
+                </div>
+            </div>
 
             <p class="error" id="form-error" hidden></p>
 
-            <button type="button" class="btn btn--primary" id="btn-submit">Evaluar mi riesgo</button>
+            <button type="button" class="btn btn--primary" id="btn-submit">Obtener estimación</button>
         </form>
 
         <!-- PANTALLA 3: RESULTADO -->
@@ -123,27 +138,27 @@
             <div class="result">
                 <svg class="gauge" viewBox="0 0 120 120" aria-hidden="true">
                     <circle class="gauge__track" cx="60" cy="60" r="54"></circle>
-                    <circle class="gauge__value" id="gauge-value" cx="60" cy="60" r="54"></circle>
+                    <circle class="gauge__value gauge__value--neutral" id="gauge-value" cx="60" cy="60" r="54"></circle>
                 </svg>
                 <div class="result__figures">
                     <span class="result__pct" id="result-pct">0%</span>
-                    <span class="result__label" id="result-label">Calculando…</span>
+                    <span class="result__caption">Probabilidad estimada</span>
                 </div>
             </div>
 
-            <p class="result__explain" id="result-explain"></p>
+            <p class="result__reference" id="result-reference"></p>
+            <p class="result__explain" id="result-message"></p>
+
+            <hr class="rule">
+
+            <h3 class="subsection-title">Cómo combinó el modelo tus datos</h3>
+            <ul class="factores" id="result-factores"></ul>
+            <p class="section-note" id="result-nota"></p>
 
             <p class="result__meta" id="result-meta"></p>
 
-            <p class="disclaimer">
-                Este resultado es una estimación generada por un modelo estadístico y no reemplaza
-                la evaluación de un profesional de salud. Ante cualquier duda, consulta a tu médico.
-            </p>
-
-            <button type="button" class="btn btn--ghost" id="btn-reset">Registrar otro participante</button>
-            <a href="#" id="link-sus" class="btn btn--primary"
-                style="display:block;text-align:center;text-decoration:none;box-sizing:border-box;margin-top:10px;">¿Ya
-                terminaste? Completa la encuesta de usabilidad</a>
+            <button type="button" class="btn btn--ghost" id="btn-reset">Nueva evaluación</button>
+            <a href="#" id="link-sus" class="btn btn--primary btn--link" hidden>Completa la encuesta de usabilidad</a>
         </section>
 
     </div>

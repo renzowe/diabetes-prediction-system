@@ -7,9 +7,14 @@ const screens = {
     result: document.getElementById('screen-result'),
 };
 
-let startTime = null;
 let participantCode = '';
 let imcCalculado = null;
+
+// Opciones de 0 a 7 dias para las preguntas de frutas y verduras
+document.querySelectorAll('.select-dias').forEach((select) => {
+    select.innerHTML = '<option value="" selected disabled>Selecciona</option>'
+        + Array.from({ length: 8 }, (_, i) => `<option value="${i}">${i === 1 ? '1 día' : `${i} días`}</option>`).join('');
+});
 
 function actualizarIMC() {
     const peso = parseFloat(document.getElementById('peso').value);
@@ -23,8 +28,7 @@ function actualizarIMC() {
     }
 
     const tallaMetros = talla / 100;
-    const imc = peso / (tallaMetros * tallaMetros);
-    imcCalculado = Math.round(imc * 10) / 10; // 1 decimal
+    imcCalculado = Math.round((peso / (tallaMetros * tallaMetros)) * 10) / 10; // 1 decimal
     display.textContent = imcCalculado.toFixed(1);
 }
 
@@ -34,30 +38,25 @@ document.getElementById('talla').addEventListener('input', actualizarIMC);
 function showScreen(name) {
     Object.values(screens).forEach((el) => el.setAttribute('hidden', ''));
     screens[name].removeAttribute('hidden');
+    window.scrollTo(0, 0);
 }
 
-function nivelRiesgo(pct) {
-    if (pct < 30) return 'bajo';
-    if (pct < 60) return 'moderado';
-    return 'alto';
+function formatoPorcentaje(proporcion) {
+    const pct = proporcion * 100;
+    return `${pct < 10 ? pct.toFixed(1) : Math.round(pct)}%`;
 }
 
-const EXPLICACIONES = {
-    bajo: 'Tus datos actuales no muestran señales fuertes de riesgo. Mantener hábitos saludables ayuda a que se mantenga así.',
-    moderado: 'Se observan algunos factores que conviene vigilar. Considera conversarlo con un profesional de salud en tu próximo control.',
-    alto: 'Varios factores sugieren un riesgo elevado. Te recomendamos acudir a un profesional de salud para una evaluación completa.',
-};
+function respuestaSiNo(nombre) {
+    return document.querySelector(`input[name="${nombre}"]:checked`).value === '1';
+}
 
 // --- Pantalla 1: inicio ---
 document.getElementById('btn-start').addEventListener('click', () => {
-    const codigoInput = document.getElementById('codigo-participante');
-    participantCode = codigoInput.value.trim() || 'anonimo';
-    startTime = performance.now();
+    participantCode = document.getElementById('codigo-participante').value.trim();
     showScreen('form');
 });
 
-// Evita que el navegador recargue la pagina si el participante presiona
-// Enter dentro del formulario (comportamiento nativo de <form>).
+// Evita que el navegador recargue la pagina si se presiona Enter dentro del formulario
 document.getElementById('screen-form').addEventListener('submit', (e) => {
     e.preventDefault();
     document.getElementById('btn-submit').click();
@@ -74,34 +73,29 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
         return;
     }
 
-    if (imcCalculado === null) {
-        errorEl.textContent = 'Ingresa tu peso y talla para calcular el IMC.';
-        errorEl.hidden = false;
-        return;
-    }
-    if (imcCalculado <= 10 || imcCalculado >= 70) {
-        errorEl.textContent = `El IMC calculado (${imcCalculado}) está fuera de un rango válido. Revisa el peso y la talla ingresados.`;
+    if (imcCalculado === null || imcCalculado < 12 || imcCalculado > 70) {
+        errorEl.textContent = `El IMC calculado (${imcCalculado ?? '—'}) está fuera de un rango plausible. Revisa el peso y la talla ingresados.`;
         errorEl.hidden = false;
         return;
     }
 
     const payload = {
         edad: Number(document.getElementById('edad').value),
-        genero: document.getElementById('genero').value,
-        hipertension: Number(document.querySelector('input[name="hipertension"]:checked').value),
-        enfermedad_cardiaca: Number(document.querySelector('input[name="cardiaca"]:checked').value),
-        historial_tabaquismo: document.getElementById('tabaquismo').value,
-        imc: imcCalculado,
-        hba1c: Number(document.getElementById('hba1c').value),
-        glucosa: Number(document.getElementById('glucosa').value),
-        momento: 'sistema',
-        tiempo_segundos: Number(((performance.now() - startTime) / 1000).toFixed(1)),
-        participante_codigo: participantCode,
+        sexo: document.getElementById('sexo').value,
+        peso_kg: Number(document.getElementById('peso').value),
+        talla_cm: Number(document.getElementById('talla').value),
+        cintura_cm: Number(document.getElementById('cintura').value),
+        hipertension: respuestaSiNo('hipertension'),
+        fuma: respuestaSiNo('fuma'),
+        alcohol: respuestaSiNo('alcohol'),
+        dias_frutas: Number(document.getElementById('dias-frutas').value),
+        dias_verduras: Number(document.getElementById('dias-verduras').value),
+        participante_codigo: participantCode || null,
     };
 
     const btn = document.getElementById('btn-submit');
     btn.disabled = true;
-    btn.textContent = 'Evaluando…';
+    btn.textContent = 'Calculando…';
 
     try {
         const res = await fetch(`${API_BASE}/predict`, {
@@ -113,58 +107,81 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
 
         if (!res.ok) {
             const detail = await res.json().catch(() => null);
-            throw new Error(detail?.detail ? JSON.stringify(detail.detail) : `Error del servidor (${res.status})`);
+            const mensajes = Array.isArray(detail?.detail) ? detail.detail.map((d) => d.msg).join('; ') : null;
+            throw new Error(mensajes || `Error del servidor (${res.status})`);
         }
 
-        const data = await res.json();
-        mostrarResultado(data, payload.tiempo_segundos);
+        mostrarResultado(await res.json());
     } catch (err) {
-        errorEl.textContent = `No se pudo obtener el resultado: ${err.message}. Verifica que el servidor esté activo e inténtalo de nuevo.`;
+        errorEl.textContent = `No se pudo obtener el resultado: ${err.message}.`;
         errorEl.hidden = false;
     } finally {
         btn.disabled = false;
-        btn.textContent = 'Evaluar mi riesgo';
+        btn.textContent = 'Obtener estimación';
     }
 });
 
 // --- Pantalla 3: resultado ---
-function mostrarResultado(data, tiempoSegundos) {
-    const pct = Math.round(data.probabilidad * 100);
-    const nivel = data.nivel_riesgo || nivelRiesgo(pct);
+function crearFactor(factor) {
+    // Se construye con textContent para no interpretar como HTML los textos que llegan de la API
+    const item = document.createElement('li');
+    item.className = 'factor';
 
-    document.getElementById('result-pct').textContent = `${pct}%`;
+    const nombre = document.createElement('span');
+    nombre.className = 'factor__nombre';
+    nombre.textContent = factor.factor;
 
-    const labelEl = document.getElementById('result-label');
-    labelEl.textContent = { bajo: 'Riesgo bajo', moderado: 'Riesgo moderado', alto: 'Riesgo alto' }[nivel];
-    labelEl.className = `result__label result__label--${nivel}`;
+    const valor = document.createElement('span');
+    valor.className = 'factor__valor';
+    valor.textContent = factor.valor;
 
-    document.getElementById('result-explain').textContent = EXPLICACIONES[nivel];
+    const efecto = document.createElement('span');
+    efecto.className = `factor__efecto factor__efecto--${factor.efecto}`;
+    efecto.textContent = factor.efecto === 'aumenta' ? 'eleva la estimación' : 'reduce la estimación';
+
+    item.append(nombre, valor, efecto);
+    return item;
+}
+
+function mostrarResultado(data) {
+    document.getElementById('result-pct').textContent = formatoPorcentaje(data.probabilidad);
+    document.getElementById('result-reference').textContent =
+        `Como referencia, en la población con la que se desarrolló el modelo (adultos de 30 a 69 años de Lima `
+        + `Metropolitana, ENDES 2021-2024), el ${formatoPorcentaje(data.prevalencia_referencia)} reportó un `
+        + `diagnóstico de diabetes.`;
+    document.getElementById('result-message').textContent = data.mensaje;
+
+    const lista = document.getElementById('result-factores');
+    lista.replaceChildren(...data.factores.map(crearFactor));
+    document.getElementById('result-nota').textContent = data.nota_factores;
+
     document.getElementById('result-meta').textContent =
-        `Participante ${participantCode} · evaluado en ${tiempoSegundos}s · registro #${data.id}`;
-    document.getElementById('link-sus').href = `sus.html?codigo=${encodeURIComponent(participantCode)}`;
+        `Registro #${data.id}${participantCode ? ` · participante ${participantCode}` : ''} · `
+        + `modelo: ${data.modelo.algoritmo} (${data.modelo.datos_entrenamiento})`;
 
-    const gaugeColor = { bajo: 'var(--risk-low)', moderado: 'var(--risk-mid)', alto: 'var(--risk-high)' }[nivel];
+    const linkSus = document.getElementById('link-sus');
+    linkSus.hidden = !participantCode;
+    linkSus.href = `sus.html?codigo=${encodeURIComponent(participantCode)}`;
+
     const gaugeEl = document.getElementById('gauge-value');
-    gaugeEl.style.stroke = gaugeColor;
     gaugeEl.style.strokeDashoffset = CIRCUMFERENCE; // reinicia antes de animar
 
     showScreen('result');
 
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            gaugeEl.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - pct / 100));
+            gaugeEl.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - data.probabilidad));
         });
     });
 }
 
-// --- Reiniciar para el siguiente participante ---
+// --- Nueva evaluacion ---
 document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('screen-form').reset();
     document.getElementById('codigo-participante').value = '';
     document.getElementById('form-error').hidden = true;
     document.getElementById('imc-display').textContent = '—';
     imcCalculado = null;
-    startTime = null;
     participantCode = '';
     showScreen('start');
 });

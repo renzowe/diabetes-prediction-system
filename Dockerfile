@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 WORKDIR /app
 
@@ -6,7 +6,8 @@ COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/app ./app
-COPY models ./models
+# Solo los modelos congelados en notebooks/03 (models/v2); el modelo web se elige con seleccion.json
+COPY models/v2 ./models/v2
 
 EXPOSE 8000
 

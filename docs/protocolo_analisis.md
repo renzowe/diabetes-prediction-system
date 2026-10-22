@@ -126,6 +126,31 @@ datos de 2025 e imputó con medianas calculadas sobre todos los años. Sus resul
 para elegir el algoritmo, los hiperparámetros, el umbral ni las metas, y no se reportan como
 resultados. La meta de AUC ≥ 0.75 se sustenta en Xie et al. (2019).
 
+## 8.1 Análisis posteriores a la evaluación final
+
+Análisis agregados después de la evaluación única de 2025. Usan **solo datos 2021–2024**, no
+modifican los modelos congelados en `models/v2/` y no se usan para cambiarlos.
+
+**Variable alcohol** (`notebooks/05_analisis_alcohol.ipynb`). Motivo: en la API, el consumo de
+alcohol en los últimos 12 meses contribuye a disminuir la probabilidad estimada. Se verifica:
+(1) la pregunta `QS208` y su codificación en los cuestionarios y diccionarios 2021–2025;
+(2) que la API codifique la respuesta igual que el entrenamiento; (3) la interpretación de la
+contribución (clase positiva, signo y valor de referencia); (4) la asociación observada, en
+conjunto, por edad, sexo, año y ajustada por otros predictores; y (5) mediante validación cruzada
+con las mismas particiones (semilla 42), la discriminación y calibración del modelo web con y sin
+alcohol. La hipótesis de causalidad inversa no se da por comprobada.
+
+Criterio prefijado: se considera que el alcohol aporta de forma relevante al modelo web si su
+exclusión reduce la AUC-ROC media de validación cruzada en 0.005 o más, o empeora la calibración
+(pendiente fuera de [0.9, 1.1] o Brier score mayor). La comparación usa regresión logística con la
+misma malla de `C` y las mismas 5 particiones del notebook 03, y se complementa con 10 repeticiones
+de validación cruzada de 5 particiones (`C` = 1) para estimar la variabilidad de la diferencia.
+
+Resultado y decisión (resumen en `docs/analisis_alcohol.md`): no hay error de codificación ni de
+integración; la asociación se explica en gran parte por la edad y el sexo y su causa no puede
+determinarse; el alcohol no aporta al modelo web. Se conserva el modelo congelado (sin reentrenar con
+2025) y el sistema web no muestra la contribución del alcohol.
+
 ## 9. Registro de cambios
 
 | Fecha | Cambio | Motivo |
@@ -133,3 +158,5 @@ resultados. La meta de AUC ≥ 0.75 se sustenta en Xie et al. (2019).
 | 2026-10-21 | Versión inicial | — |
 | 2026-10-21 | Se agrega la sección 3.1 (análisis de factores asociados y criterio de HE1) | No estaba especificado; se fija antes de ejecutar el análisis |
 | 2026-10-21 | Los scripts de `ml/` pasan a notebooks en `notebooks/` (la codificación queda en `notebooks/preparacion.py`) | Mantener el método de trabajo del proyecto; no cambia ninguna decisión del análisis |
+| 2026-10-21 | Se agrega la sección 8.1 (análisis posterior de la variable alcohol, solo 2021–2024) | Contribución negativa del alcohol observada en la API; se investiga sin modificar el modelo congelado |
+| 2026-10-21 | Se registra el resultado de la sección 8.1 y la decisión de conservar el modelo congelado | El alcohol no aporta al modelo; se decide no reentrenar con 2025 y no mostrar su contribución en la web |

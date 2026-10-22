@@ -315,6 +315,100 @@ body {
     margin-bottom: 28px;
 }
 
+/* Resultado de la estimacion: sin colores de riesgo, porque no hay categorias de riesgo */
+.gauge__value--neutral {
+    stroke: var(--primary);
+}
+
+.result__caption {
+    font-size: 14px;
+    color: var(--ink-muted);
+}
+
+.result__reference {
+    font-size: 14px;
+    color: var(--ink-muted);
+    max-width: 52ch;
+}
+
+.subsection-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+.factores {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
+.factor {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2px 12px;
+    padding: 12px 14px;
+}
+
+.factor + .factor {
+    border-top: 1px solid var(--line);
+}
+
+.factor__nombre {
+    font-weight: 500;
+}
+
+.factor__valor {
+    grid-column: 1;
+    font-size: 13px;
+    color: var(--ink-muted);
+}
+
+.factor__efecto {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--ink-muted);
+}
+
+.factor__efecto--aumenta {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.callout {
+    font-size: 14px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--primary);
+    background: var(--surface);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 0 0 24px;
+}
+
+.optional {
+    font-weight: 400;
+    color: var(--ink-muted);
+}
+
+.btn--link {
+    display: block;
+    text-decoration: none;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.btn--link[hidden] {
+    display: none;
+}
+
 @media (max-width: 460px) {
     .grid {
         grid-template-columns: 1fr;
