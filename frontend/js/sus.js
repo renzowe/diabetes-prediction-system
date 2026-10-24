@@ -1,25 +1,28 @@
 // La URL del backend viene de config.js (cargado antes de este archivo)
 const CIRCUMFERENCE = 339.3;
 
+// Versión en español validada de la SUS (Sevilla-Gonzalez et al., 2020, JMIR Human Factors 7(4):e21161,
+// anexo multimedia 2). Los textos se transcriben sin cambios: no modificar su redacción.
 const PREGUNTAS_SUS = [
-  'Creo que usaría este sistema frecuentemente.',
-  'Encontré el sistema innecesariamente complejo.',
-  'Pensé que el sistema era fácil de usar.',
-  'Creo que necesitaría ayuda de alguien para poder usarlo.',
-  'Las funciones del sistema están bien integradas.',
-  'Encontré demasiada inconsistencia en el sistema.',
-  'Imagino que la mayoría de las personas aprenderían a usarlo rápidamente.',
-  'Encontré el sistema muy incómodo de usar.',
-  'Me sentí muy seguro usando el sistema.',
-  'Necesité aprender muchas cosas antes de poder manejarlo.',
+  'Me gustaría usar esta herramienta frecuentemente.',
+  'Considero que esta herramienta es innecesariamente compleja',
+  'Considero que la herramienta es fácil de usar.',
+  'Considero necesario el apoyo de personal experto para poder utilizar esta herramienta',
+  'Considero que las funciones de la herramienta están bien integradas',
+  'Considero que la herramienta presenta muchas contradicciones',
+  'Imagino que la mayoría de las personas aprenderían a usar esta herramienta rápidamente',
+  'Considero que el uso de esta herramienta es tedioso',
+  'Me sentí muy confiado al usar la herramienta',
+  'Necesité saber bastantes cosas antes de poder empezar a usar esta herramienta',
 ];
 
+// En la versión validada solo se rotulan los extremos de la escala de 1 a 5
 const ESCALA = [
-  { valor: 1, texto: 'Totalmente en desacuerdo' },
-  { valor: 2, texto: 'En desacuerdo' },
-  { valor: 3, texto: 'Neutral' },
-  { valor: 4, texto: 'De acuerdo' },
-  { valor: 5, texto: 'Totalmente de acuerdo' },
+  { valor: 1, texto: '1 · Totalmente en desacuerdo' },
+  { valor: 2, texto: '2' },
+  { valor: 3, texto: '3' },
+  { valor: 4, texto: '4' },
+  { valor: 5, texto: '5 · Totalmente de acuerdo' },
 ];
 
 function construirFormulario() {
@@ -91,7 +94,7 @@ document.getElementById('btn-submit-sus').addEventListener('click', async () => 
     const data = await res.json();
     mostrarResultado(data);
   } catch (err) {
-    errorEl.textContent = `No se pudo enviar la encuesta: ${err.message}. Verifica que el servidor esté activo e inténtalo de nuevo.`;
+    errorEl.textContent = `No se pudo enviar la encuesta: ${err.message}. Verifique que el servidor esté activo e inténtelo de nuevo.`;
     errorEl.hidden = false;
   } finally {
     btn.disabled = false;
