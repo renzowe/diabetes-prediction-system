@@ -1,11 +1,11 @@
 {
-  "version_catalogo": "1.0 (2026-10-21, pendiente de juicio de expertos)",
+  "version_catalogo": "1.0 (2026-10-21)",
   "items": [
     {
       "seccion": "A. Variables predictoras",
       "item_id": "A1",
       "nombre": "Edad",
-      "texto": "Edad en años cumplidos (20 a 69).",
+      "texto": "Edad en años cumplidos (de 20 a 69 años).",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -17,7 +17,7 @@
       "seccion": "A. Variables predictoras",
       "item_id": "A2",
       "nombre": "Sexo",
-      "texto": "Sexo biológico registrado (hombre o mujer).",
+      "texto": "Sexo de la persona (hombre o mujer).",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -29,7 +29,7 @@
       "seccion": "A. Variables predictoras",
       "item_id": "A3",
       "nombre": "Índice de masa corporal (IMC)",
-      "texto": "Peso (kg) / talla (m)², calculado a partir del peso y la talla que ingresa la persona.",
+      "texto": "Peso (kg) dividido entre la talla (m) al cuadrado, calculado con el peso y la talla que ingresa la persona.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -41,7 +41,7 @@
       "seccion": "A. Variables predictoras",
       "item_id": "A4",
       "nombre": "Perímetro abdominal",
-      "texto": "Circunferencia de la cintura en cm, a la altura del ombligo (opcional).",
+      "texto": "Circunferencia de la cintura en centímetros, medida a la altura del ombligo. Es opcional. Si la persona no lo indica, el modelo usa el valor más frecuente o típico de la población de referencia.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -53,7 +53,7 @@
       "seccion": "A. Variables predictoras",
       "item_id": "A5",
       "nombre": "Hipertensión diagnosticada",
-      "texto": "Diagnóstico previo de presión alta realizado por un profesional de salud (sí o no).",
+      "texto": "Diagnóstico previo de presión alta realizado por un médico u otro profesional de salud (sí o no).",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -65,7 +65,7 @@
       "seccion": "A. Variables predictoras",
       "item_id": "A6",
       "nombre": "Antecedente familiar de diabetes",
-      "texto": "Padre, madre, hermano o hermana con diagnóstico de diabetes (sí, no o no sabe).",
+      "texto": "Padre, madre, hermano o hermana con diagnóstico de diabetes (sí, no o no sabe). Si la persona no lo indica, el modelo usa el valor más frecuente o típico de la población de referencia.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -77,7 +77,7 @@
       "seccion": "A. Variables predictoras",
       "item_id": "A7",
       "nombre": "Actividad física recreativa",
-      "texto": "Realiza deportes, ejercicios o actividades recreativas moderadas o vigorosas de al menos 10 minutos seguidos en una semana típica (sí o no).",
+      "texto": "Realiza deportes, ejercicios o actividades recreativas moderadas o vigorosas durante al menos 10 minutos seguidos en una semana típica (sí o no).",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -101,7 +101,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B1",
       "nombre": "Pregunta de filtro",
-      "texto": "¿Algún médico le ha dicho que tiene diabetes, prediabetes o azúcar alta en la sangre, o usa insulina o pastillas para la diabetes?",
+      "texto": "¿Algún médico le ha dicho que tiene diabetes, prediabetes o azúcar alta en la sangre, o usa insulina o pastillas para la diabetes? (Sí / No). Si responde «Sí», el sistema no realiza la estimación.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -113,7 +113,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B2",
       "nombre": "Embarazo (solo mujeres)",
-      "texto": "¿Está embarazada actualmente?",
+      "texto": "¿Está embarazada actualmente? (Sí / No). Si responde «Sí», el sistema no realiza la estimación.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -125,7 +125,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B3",
       "nombre": "Edad",
-      "texto": "Edad (años) (entre 20 y 69 años)",
+      "texto": "Edad (años). Se acepta de 20 a 69 años.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -137,7 +137,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B4",
       "nombre": "Peso y talla",
-      "texto": "Peso (kg) y Talla (cm); el IMC se calcula automáticamente.",
+      "texto": "Peso (kg) y talla (cm). El IMC se calcula automáticamente y se muestra en pantalla.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -149,7 +149,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B5",
       "nombre": "Perímetro abdominal",
-      "texto": "De pie, con la cinta alrededor de la cintura a la altura del ombligo, sin ajustarla. Si no tienes cinta métrica, déjalo vacío.",
+      "texto": "Perímetro abdominal (cm), opcional. Indicación: De pie, con la cinta alrededor de la cintura a la altura del ombligo, sin ajustarla. Si no tiene cinta métrica, déjelo vacío.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -161,7 +161,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B6",
       "nombre": "Hipertensión",
-      "texto": "¿Algún médico u otro profesional de salud le ha dicho que tiene presión alta (hipertensión)?",
+      "texto": "¿Algún médico u otro profesional de salud le ha dicho que tiene presión alta (hipertensión)? (Sí / No)",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -185,7 +185,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B8",
       "nombre": "Actividad física",
-      "texto": "En una semana típica, ¿practica deportes, ejercicios o actividades recreativas moderadas o vigorosas (por ejemplo, caminar a paso rápido, nadar, montar bicicleta, jugar fútbol) durante al menos 10 minutos seguidos?",
+      "texto": "En una semana típica, ¿practica deportes, ejercicios o actividades recreativas moderadas o vigorosas (por ejemplo, caminar a paso rápido, nadar, montar bicicleta, jugar fútbol) durante al menos 10 minutos seguidos? (Sí / No)",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -197,7 +197,7 @@
       "seccion": "B. Preguntas del formulario",
       "item_id": "B9",
       "nombre": "Tabaco",
-      "texto": "¿Fuma cigarrillos actualmente, ya sea todos los días o algunos días?",
+      "texto": "¿Fuma cigarrillos actualmente, ya sea todos los días o algunos días? (Sí / No)",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -209,7 +209,7 @@
       "seccion": "C. Mensajes del resultado",
       "item_id": "C1",
       "nombre": "Mensaje de alcance",
-      "texto": "Esta cifra estima qué proporción de las personas con un perfil como el suyo tenía, sin saberlo, una hemoglobina glicosilada (HbA1c) de 5.7 % o más, valor compatible con prediabetes o diabetes, en la encuesta NHANES de Estados Unidos. No es un diagnóstico ni indica si usted tiene diabetes: solo un análisis de laboratorio puede confirmarlo. El modelo se desarrolló con población de Estados Unidos y su aplicación en Lima Metropolitana está en evaluación.",
+      "texto": "Esta cifra estima qué proporción de las personas con un perfil como el suyo tenía, sin saberlo, una hemoglobina glicosilada (HbA1c) de 5.7 % o más, valor compatible con prediabetes o diabetes, en la encuesta NHANES de Estados Unidos. No es un diagnóstico ni indica si usted tiene diabetes: solo un análisis de laboratorio puede confirmarlo. El modelo se desarrolló con población de Estados Unidos; su precisión en la población peruana todavía no ha sido evaluada.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -245,7 +245,7 @@
       "seccion": "C. Mensajes del resultado",
       "item_id": "C4",
       "nombre": "Nota sobre las recomendaciones",
-      "texto": "Recomendaciones generales tomadas de guías de salud, elegidas según los datos que ingresó. No sustituyen la consulta con un profesional de salud ni garantizan una reducción del riesgo. Están pendientes de revisión por un panel de expertos.",
+      "texto": "Recomendaciones generales tomadas de guías de salud, elegidas según los datos que ingresó. No sustituyen la consulta con un profesional de salud ni garantizan una reducción del riesgo.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -269,7 +269,7 @@
       "seccion": "C. Mensajes del resultado",
       "item_id": "C6",
       "nombre": "Mensaje de fuera de alcance",
-      "texto": "Este sistema está pensado para personas sin diagnóstico previo de diabetes ni prediabetes y que no estén embarazadas. Si ya recibió un diagnóstico, siga las indicaciones de su profesional de salud.",
+      "texto": "Este sistema está pensado para personas sin diagnóstico previo de diabetes ni prediabetes y que no estén embarazadas. Si ya recibió un diagnóstico o está embarazada, siga las indicaciones de su profesional de salud.",
       "detalle": "",
       "criterios": [
         "Claridad",
@@ -282,7 +282,7 @@
       "item_id": "D1",
       "nombre": "Actividad física",
       "texto": "La Organización Mundial de la Salud recomienda que los adultos realicen cada semana entre 150 y 300 minutos de actividad física aeróbica moderada (por ejemplo, caminar a paso rápido) o entre 75 y 150 minutos de actividad vigorosa, además de ejercicios de fortalecimiento muscular dos o más días por semana. Si tiene alguna enfermedad o limitación, consulte con un profesional de salud antes de empezar.",
-      "detalle": "Se muestra cuando: No realiza actividades físicas recreativas moderadas o vigorosas en una semana típica. Fuentes: Bull FC, Al-Ansari SS, Biddle S, et al. World Health Organization 2020 guidelines on physical activity and sedentary behaviour. Br J Sports Med. 2020;54(24):1451–1462. doi:10.1136/bjsports-2020-102955; American Diabetes Association Professional Practice Committee. 3. Prevention or Delay of Diabetes and Associated Comorbidities: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S50–S60. doi:10.2337/dc26-S003",
+      "detalle": "Se muestra cuando: no realiza actividades físicas recreativas moderadas o vigorosas en una semana típica. Fuentes: Bull FC, Al-Ansari SS, Biddle S, et al. World Health Organization 2020 guidelines on physical activity and sedentary behaviour. Br J Sports Med. 2020;54(24):1451–1462. doi:10.1136/bjsports-2020-102955; American Diabetes Association Professional Practice Committee. 3. Prevention or Delay of Diabetes and Associated Comorbidities: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S50–S60. doi:10.2337/dc26-S003",
       "criterios": [
         "Sustento",
         "Pertinencia",
@@ -308,7 +308,7 @@
       "item_id": "D3",
       "nombre": "Tabaco",
       "texto": "Fumar es una de las causas de la diabetes tipo 2: según los CDC, las personas que fuman tienen entre 30 y 40 % más probabilidad de desarrollarla que quienes no fuman. La Asociación Americana de Diabetes indica que las personas con riesgo de diabetes deben recibir orientación para dejar de fumar. Puede pedir apoyo para dejar de fumar en su establecimiento de salud.",
-      "detalle": "Se muestra cuando: Fuma actualmente (todos los días o algunos días). Fuentes: Centers for Disease Control and Prevention. Smoking and Diabetes. Tips From Former Smokers. https://www.cdc.gov/tobacco/campaign/tips/diseases/diabetes.html (revisado el 13 de octubre de 2023); American Diabetes Association Professional Practice Committee. 3. Prevention or Delay of Diabetes and Associated Comorbidities: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S50–S60. doi:10.2337/dc26-S003",
+      "detalle": "Se muestra cuando: fuma actualmente (todos los días o algunos días). Fuentes: Centers for Disease Control and Prevention. Smoking and Diabetes. Tips From Former Smokers. https://www.cdc.gov/tobacco/campaign/tips/diseases/diabetes.html (revisado el 13 de octubre de 2023); American Diabetes Association Professional Practice Committee. 3. Prevention or Delay of Diabetes and Associated Comorbidities: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S50–S60. doi:10.2337/dc26-S003",
       "criterios": [
         "Sustento",
         "Pertinencia",
@@ -321,7 +321,7 @@
       "item_id": "D4",
       "nombre": "Prueba de laboratorio",
       "texto": "Según los criterios de la Asociación Americana de Diabetes, a su perfil le corresponde una prueba de tamizaje de diabetes y prediabetes, como la hemoglobina glicosilada (HbA1c) o la glucosa en ayunas. Solo un análisis de laboratorio puede indicar si sus valores son normales. Si el resultado es normal, la guía recomienda repetir la prueba al menos cada 3 años.",
-      "detalle": "Se muestra cuando: Edad ≥ 35 años, o IMC ≥ 25 con familiar de primer grado con diabetes, hipertensión o inactividad física. Fuentes: American Diabetes Association Professional Practice Committee. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S27–S49. doi:10.2337/dc26-S002; US Preventive Services Task Force. Screening for Prediabetes and Type 2 Diabetes: US Preventive Services Task Force Recommendation Statement. JAMA. 2021;326(8):736–743. doi:10.1001/jama.2021.12531",
+      "detalle": "Se muestra cuando: edad ≥ 35 años, o IMC ≥ 25 junto con al menos uno de estos factores: familiar de primer grado con diabetes, hipertensión diagnosticada o inactividad física. Fuentes: American Diabetes Association Professional Practice Committee. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S27–S49. doi:10.2337/dc26-S002; US Preventive Services Task Force. Screening for Prediabetes and Type 2 Diabetes: US Preventive Services Task Force Recommendation Statement. JAMA. 2021;326(8):736–743. doi:10.1001/jama.2021.12531",
       "criterios": [
         "Sustento",
         "Pertinencia",
@@ -334,7 +334,7 @@
       "item_id": "D5",
       "nombre": "Cuándo realizarse una prueba",
       "texto": "Con los datos ingresados, las guías de la Asociación Americana de Diabetes todavía no indican una prueba de tamizaje. Recomiendan empezar a los 35 años, o antes si se presenta sobrepeso junto con otro factor de riesgo, como tener un familiar directo con diabetes, hipertensión o inactividad física.",
-      "detalle": "Se muestra cuando: No cumple el criterio de la prueba de tamizaje. Fuentes: American Diabetes Association Professional Practice Committee. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S27–S49. doi:10.2337/dc26-S002",
+      "detalle": "Se muestra cuando: no cumple el criterio de la prueba de tamizaje y se muestran menos de dos recomendaciones sobre factores modificables. Fuentes: American Diabetes Association Professional Practice Committee. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S27–S49. doi:10.2337/dc26-S002",
       "criterios": [
         "Sustento",
         "Pertinencia",
@@ -347,7 +347,7 @@
       "item_id": "D6",
       "nombre": "Síntomas que requieren consulta",
       "texto": "Si presenta sed excesiva, necesidad de orinar con mucha frecuencia o pérdida de peso sin causa aparente, acuda a un establecimiento de salud, aunque la estimación de este sistema sea baja.",
-      "detalle": "Se muestra cuando: Se muestra solo si los criterios anteriores dan menos de dos recomendaciones. Fuentes: American Diabetes Association Professional Practice Committee. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S27–S49. doi:10.2337/dc26-S002",
+      "detalle": "Se muestra cuando: los demás criterios dan, en total, menos de dos recomendaciones. Fuentes: American Diabetes Association Professional Practice Committee. 2. Diagnosis and Classification of Diabetes: Standards of Care in Diabetes—2026. Diabetes Care. 2026;49(Suppl 1):S27–S49. doi:10.2337/dc26-S002",
       "criterios": [
         "Sustento",
         "Pertinencia",

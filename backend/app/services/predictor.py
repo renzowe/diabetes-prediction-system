@@ -58,8 +58,8 @@ MENSAJE_ALCANCE = (
     "Esta cifra estima qué proporción de las personas con un perfil como el suyo tenía, sin saberlo, una "
     "hemoglobina glicosilada (HbA1c) de 5.7 % o más, valor compatible con prediabetes o diabetes, en la encuesta "
     "NHANES de Estados Unidos. No es un diagnóstico ni indica si usted tiene diabetes: solo un análisis de "
-    "laboratorio puede confirmarlo. El modelo se desarrolló con población de Estados Unidos y su aplicación en "
-    "Lima Metropolitana está en evaluación."
+    "laboratorio puede confirmarlo. El modelo se desarrolló con población de Estados Unidos; su precisión en la "
+    "población peruana todavía no ha sido evaluada."
 )
 
 NOTA_INTERVALO = (
@@ -86,8 +86,7 @@ AVISO_EDAD = (
 
 NOTA_RECOMENDACIONES = (
     "Recomendaciones generales tomadas de guías de salud, elegidas según los datos que ingresó. No sustituyen la "
-    "consulta con un profesional de salud ni garantizan una reducción del riesgo. Están pendientes de revisión "
-    "por un panel de expertos."
+    "consulta con un profesional de salud ni garantizan una reducción del riesgo."
 )
 
 

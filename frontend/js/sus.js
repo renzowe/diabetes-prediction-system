@@ -60,7 +60,7 @@ document.getElementById('btn-submit-sus').addEventListener('click', async () => 
 
   const codigo = document.getElementById('codigo-participante').value.trim();
   if (!codigo) {
-    errorEl.textContent = 'Ingresa tu código de participante antes de enviar.';
+    errorEl.textContent = 'Ingrese su código de participante antes de enviar.';
     errorEl.hidden = false;
     return;
   }

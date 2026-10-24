@@ -98,7 +98,7 @@ document.getElementById('btn-submit').addEventListener('click', async () => {
     }
 
     if (imcCalculado === null || imcCalculado < 12 || imcCalculado > 70) {
-        errorEl.textContent = `El IMC calculado (${imcCalculado ?? '—'}) está fuera de un rango plausible. Revisa el peso y la talla ingresados.`;
+        errorEl.textContent = `El IMC calculado (${imcCalculado ?? '—'}) está fuera de un rango plausible. Revise el peso y la talla ingresados.`;
         errorEl.hidden = false;
         return;
     }

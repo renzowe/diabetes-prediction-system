@@ -1,6 +1,6 @@
 # Catálogo de recomendaciones preventivas
 
-Versión 1.0 (2026-10-21, pendiente de juicio de expertos). Los textos de la sección 3 son **idénticos** a los que muestra el sistema web (`backend/app/services/recomendaciones.py`); una prueba automática verifica que coincidan.
+Versión 1.0 (2026-10-21), sometida al juicio de expertos. Los textos de la sección 3 son **idénticos** a los que muestra el sistema web (`backend/app/services/recomendaciones.py`); una prueba automática verifica que coincidan.
 
 ## 1. Propósito y principios
 
@@ -24,18 +24,18 @@ Así, cada persona recibe siempre dos o tres mensajes.
 
 | Id | Tipo | Criterio de activación | Fuentes |
 |---|---|---|---|
-| `actividad_fisica` | Modificable | No realiza actividades físicas recreativas moderadas o vigorosas en una semana típica | OMS-AF, ADA-3 |
+| `actividad_fisica` | Modificable | no realiza actividades físicas recreativas moderadas o vigorosas en una semana típica | OMS-AF, ADA-3 |
 | `peso` | Modificable | IMC ≥ 25 kg/m² | ADA-3 |
-| `tabaco` | Modificable | Fuma actualmente (todos los días o algunos días) | CDC-TAB, ADA-3 |
-| `prueba_tamizaje` | General | Edad ≥ 35 años, o IMC ≥ 25 con familiar de primer grado con diabetes, hipertensión o inactividad física | ADA-2, USPSTF |
-| `tamizaje_futuro` | General | No cumple el criterio de la prueba de tamizaje | ADA-2 |
-| `sintomas` | General | Se muestra solo si los criterios anteriores dan menos de dos recomendaciones | ADA-2 |
+| `tabaco` | Modificable | fuma actualmente (todos los días o algunos días) | CDC-TAB, ADA-3 |
+| `prueba_tamizaje` | General | edad ≥ 35 años, o IMC ≥ 25 junto con al menos uno de estos factores: familiar de primer grado con diabetes, hipertensión diagnosticada o inactividad física | ADA-2, USPSTF |
+| `tamizaje_futuro` | General | no cumple el criterio de la prueba de tamizaje y se muestran menos de dos recomendaciones sobre factores modificables | ADA-2 |
+| `sintomas` | General | los demás criterios dan, en total, menos de dos recomendaciones | ADA-2 |
 
 ### Actividad física (`actividad_fisica`)
 
 > La Organización Mundial de la Salud recomienda que los adultos realicen cada semana entre 150 y 300 minutos de actividad física aeróbica moderada (por ejemplo, caminar a paso rápido) o entre 75 y 150 minutos de actividad vigorosa, además de ejercicios de fortalecimiento muscular dos o más días por semana. Si tiene alguna enfermedad o limitación, consulte con un profesional de salud antes de empezar.
 
-- **Criterio:** No realiza actividades físicas recreativas moderadas o vigorosas en una semana típica.
+- **Criterio:** no realiza actividades físicas recreativas moderadas o vigorosas en una semana típica.
 - **Fuentes:** OMS-AF, ADA-3.
 
 ### Peso corporal (`peso`)
@@ -49,28 +49,28 @@ Así, cada persona recibe siempre dos o tres mensajes.
 
 > Fumar es una de las causas de la diabetes tipo 2: según los CDC, las personas que fuman tienen entre 30 y 40 % más probabilidad de desarrollarla que quienes no fuman. La Asociación Americana de Diabetes indica que las personas con riesgo de diabetes deben recibir orientación para dejar de fumar. Puede pedir apoyo para dejar de fumar en su establecimiento de salud.
 
-- **Criterio:** Fuma actualmente (todos los días o algunos días).
+- **Criterio:** fuma actualmente (todos los días o algunos días).
 - **Fuentes:** CDC-TAB, ADA-3.
 
 ### Prueba de laboratorio (`prueba_tamizaje`)
 
 > Según los criterios de la Asociación Americana de Diabetes, a su perfil le corresponde una prueba de tamizaje de diabetes y prediabetes, como la hemoglobina glicosilada (HbA1c) o la glucosa en ayunas. Solo un análisis de laboratorio puede indicar si sus valores son normales. Si el resultado es normal, la guía recomienda repetir la prueba al menos cada 3 años.
 
-- **Criterio:** Edad ≥ 35 años, o IMC ≥ 25 con familiar de primer grado con diabetes, hipertensión o inactividad física.
+- **Criterio:** edad ≥ 35 años, o IMC ≥ 25 junto con al menos uno de estos factores: familiar de primer grado con diabetes, hipertensión diagnosticada o inactividad física.
 - **Fuentes:** ADA-2, USPSTF.
 
 ### Cuándo realizarse una prueba (`tamizaje_futuro`)
 
 > Con los datos ingresados, las guías de la Asociación Americana de Diabetes todavía no indican una prueba de tamizaje. Recomiendan empezar a los 35 años, o antes si se presenta sobrepeso junto con otro factor de riesgo, como tener un familiar directo con diabetes, hipertensión o inactividad física.
 
-- **Criterio:** No cumple el criterio de la prueba de tamizaje.
+- **Criterio:** no cumple el criterio de la prueba de tamizaje y se muestran menos de dos recomendaciones sobre factores modificables.
 - **Fuentes:** ADA-2.
 
 ### Síntomas que requieren consulta (`sintomas`)
 
 > Si presenta sed excesiva, necesidad de orinar con mucha frecuencia o pérdida de peso sin causa aparente, acuda a un establecimiento de salud, aunque la estimación de este sistema sea baja.
 
-- **Criterio:** Se muestra solo si los criterios anteriores dan menos de dos recomendaciones.
+- **Criterio:** los demás criterios dan, en total, menos de dos recomendaciones.
 - **Fuentes:** ADA-2.
 
 ## 4. Aviso para personas de 60 a 69 años

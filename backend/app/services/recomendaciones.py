@@ -10,7 +10,7 @@ someten al juicio de expertos (version del catalogo en VERSION_CATALOGO).
 from dataclasses import dataclass
 from typing import Callable
 
-VERSION_CATALOGO = "1.0 (2026-10-21, pendiente de juicio de expertos)"
+VERSION_CATALOGO = "1.0 (2026-10-21)"  # se incrementa si el juicio de expertos produce cambios
 
 FUENTES = {
     "ADA-2": (
@@ -81,7 +81,7 @@ CATALOGO = [
             "semana. Si tiene alguna enfermedad o limitación, consulte con un profesional de salud antes de empezar."
         ),
         fuentes=("OMS-AF", "ADA-3"),
-        criterio="No realiza actividades físicas recreativas moderadas o vigorosas en una semana típica",
+        criterio="no realiza actividades físicas recreativas moderadas o vigorosas en una semana típica",
         aplica=lambda p: not p.actividad_fisica,
         modificable=True,
         factor="actividad",
@@ -112,7 +112,7 @@ CATALOGO = [
             "pedir apoyo para dejar de fumar en su establecimiento de salud."
         ),
         fuentes=("CDC-TAB", "ADA-3"),
-        criterio="Fuma actualmente (todos los días o algunos días)",
+        criterio="fuma actualmente (todos los días o algunos días)",
         aplica=lambda p: p.fuma,
         modificable=True,
         factor="tabaquismo",
@@ -127,7 +127,8 @@ CATALOGO = [
             "la guía recomienda repetir la prueba al menos cada 3 años."
         ),
         fuentes=("ADA-2", "USPSTF"),
-        criterio="Edad ≥ 35 años, o IMC ≥ 25 con familiar de primer grado con diabetes, hipertensión o inactividad física",
+        criterio=("edad ≥ 35 años, o IMC ≥ 25 junto con al menos uno de estos factores: familiar de primer grado con "
+                  "diabetes, hipertensión diagnosticada o inactividad física"),
         aplica=_criterio_tamizaje_ada,
         modificable=False,
     ),
@@ -140,7 +141,8 @@ CATALOGO = [
             "factor de riesgo, como tener un familiar directo con diabetes, hipertensión o inactividad física."
         ),
         fuentes=("ADA-2",),
-        criterio="No cumple el criterio de la prueba de tamizaje",
+        criterio=("no cumple el criterio de la prueba de tamizaje y se muestran menos de dos recomendaciones sobre "
+                  "factores modificables"),
         aplica=lambda p: not _criterio_tamizaje_ada(p),
         modificable=False,
     ),
@@ -152,7 +154,7 @@ CATALOGO = [
             "aparente, acuda a un establecimiento de salud, aunque la estimación de este sistema sea baja."
         ),
         fuentes=("ADA-2",),
-        criterio="Se muestra solo si los criterios anteriores dan menos de dos recomendaciones",
+        criterio="los demás criterios dan, en total, menos de dos recomendaciones",
         aplica=lambda p: True,
         modificable=False,
     ),

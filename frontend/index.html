@@ -25,21 +25,21 @@
         <section id="screen-start" class="screen">
             <h1 class="display">¿Qué tan probable es que tenga el azúcar elevado sin saberlo?</h1>
             <p class="lede">
-                Responde unas preguntas sobre tu edad, tus medidas corporales y algunos antecedentes. El sistema
-                estimará la probabilidad de que tu hemoglobina glicosilada (HbA1c) sea de 5.7 % o más, un valor
+                Responda unas preguntas sobre su edad, sus medidas corporales y algunos antecedentes. El sistema
+                estimará la probabilidad de que su hemoglobina glicosilada (HbA1c) sea de 5.7 % o más, un valor
                 compatible con prediabetes o diabetes, sin necesidad de un análisis de sangre.
             </p>
 
             <p class="callout">
                 Está pensado para adultos de <strong>20 a 69 años</strong> que no han recibido un diagnóstico de
-                diabetes ni de prediabetes. Si tienes una <strong>cinta métrica</strong>, podrás registrar tu
+                diabetes ni de prediabetes. Si tiene una <strong>cinta métrica</strong>, podrá registrar su
                 perímetro abdominal.
             </p>
 
             <div class="field">
                 <label for="codigo-participante">Código de participante <span class="optional">(opcional)</span></label>
                 <input type="text" id="codigo-participante" placeholder="Ej. P01" maxlength="20" autocomplete="off">
-                <span class="hint">Solo si participas en la evaluación de usabilidad del sistema</span>
+                <span class="hint">Solo si participa en la evaluación de usabilidad del sistema</span>
             </div>
 
             <button type="button" class="btn btn--primary" id="btn-start">Comenzar</button>
@@ -59,7 +59,7 @@
                 <label class="toggle"><input type="radio" name="diagnostico_previo" value="1"><span>Sí</span></label>
                 <label class="toggle"><input type="radio" name="diagnostico_previo" value="0"><span>No</span></label>
             </fieldset>
-            <p class="error" id="filter-error" hidden>Selecciona una respuesta para continuar.</p>
+            <p class="error" id="filter-error" hidden>Seleccione una respuesta para continuar.</p>
             <button type="button" class="btn btn--primary" id="btn-filter">Continuar</button>
         </section>
 
@@ -68,7 +68,8 @@
             <h2 class="section-title">Este sistema no aplica a su caso</h2>
             <p class="result__explain" id="out-message">
                 Este sistema está pensado para personas sin diagnóstico previo de diabetes ni prediabetes y que no
-                estén embarazadas. Si ya recibió un diagnóstico, siga las indicaciones de su profesional de salud.
+                estén embarazadas. Si ya recibió un diagnóstico o está embarazada, siga las indicaciones de su
+                profesional de salud.
             </p>
             <button type="button" class="btn btn--ghost btn-reset">Volver al inicio</button>
         </section>
@@ -85,7 +86,7 @@
                 <div class="field">
                     <label for="sexo">Sexo</label>
                     <select id="sexo" required>
-                        <option value="" selected disabled>Selecciona</option>
+                        <option value="" selected disabled>Seleccione</option>
                         <option value="femenino">Mujer</option>
                         <option value="masculino">Hombre</option>
                     </select>
@@ -113,13 +114,13 @@
                 <div class="field">
                     <label>Índice de masa corporal (IMC)</label>
                     <div class="imc-display" id="imc-display">—</div>
-                    <span class="hint">Se calcula automáticamente a partir de tu peso y talla</span>
+                    <span class="hint">Se calcula automáticamente a partir de su peso y talla</span>
                 </div>
                 <div class="field">
                     <label for="cintura">Perímetro abdominal (cm) <span class="optional">(opcional)</span></label>
                     <input type="number" id="cintura" min="50" max="180" step="0.1">
                     <span class="hint">De pie, con la cinta alrededor de la cintura a la altura del ombligo, sin
-                        ajustarla. Si no tienes cinta métrica, déjalo vacío.</span>
+                        ajustarla. Si no tiene cinta métrica, déjelo vacío.</span>
                 </div>
             </div>
 
@@ -161,7 +162,7 @@
 
         <!-- PANTALLA 4: RESULTADO -->
         <section id="screen-result" class="screen" hidden>
-            <h2 class="section-title">Tu resultado</h2>
+            <h2 class="section-title">Su resultado</h2>
 
             <div class="result">
                 <svg class="gauge" viewBox="0 0 120 120" aria-hidden="true">
@@ -182,7 +183,7 @@
 
             <hr class="rule">
 
-            <h3 class="subsection-title">Qué datos influyeron más en tu estimación</h3>
+            <h3 class="subsection-title">Qué datos influyeron más en su estimación</h3>
             <ul class="factores" id="result-factores"></ul>
             <p class="section-note" id="result-nota"></p>
 
@@ -195,7 +196,7 @@
             <p class="result__meta" id="result-meta"></p>
 
             <button type="button" class="btn btn--ghost btn-reset">Nueva evaluación</button>
-            <a href="#" id="link-sus" class="btn btn--primary btn--link" hidden>Completa la encuesta de usabilidad</a>
+            <a href="#" id="link-sus" class="btn btn--primary btn--link" hidden>Complete la encuesta de usabilidad</a>
         </section>
 
     </div>
