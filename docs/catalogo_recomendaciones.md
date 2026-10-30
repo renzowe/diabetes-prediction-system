@@ -87,19 +87,16 @@ Se añadió el 2026-10-21, **después de la evaluación final**, y no es una rec
 - **OMS-AF.** Bull FC, Al-Ansari SS, Biddle S, et al. World Health Organization 2020 guidelines on physical activity and sedentary behaviour. Br J Sports Med. 2020;54(24):1451–1462. doi:10.1136/bjsports-2020-102955
 - **CDC-TAB.** Centers for Disease Control and Prevention. Smoking and Diabetes. Tips From Former Smokers. https://www.cdc.gov/tobacco/campaign/tips/diseases/diabetes.html (revisado el 13 de octubre de 2023)
 
-## 6. Puntos para el juicio de expertos
+## 6. Decisiones de diseño
 
-Además de calificar cada mensaje y el aviso de edad (sección 7), se pide la opinión del panel sobre estos puntos:
+1. **Criterio de tamizaje.** La ADA incluye la ascendencia latina entre los factores de riesgo de su tabla 2.5. El sistema no pregunta la etnia, y el criterio se aplica solo con la edad, el IMC, el antecedente familiar, la hipertensión y la actividad física.
+2. **Perímetro abdominal.** Ningún mensaje se activa por el perímetro abdominal, porque no se pudieron verificar puntos de corte específicos para población sudamericana.
+3. **Recursos locales.** Los mensajes remiten de forma genérica a un "establecimiento de salud".
+4. **Fuentes.** Las guías citadas son de EE. UU. y de la OMS.
 
-1. **Criterio de tamizaje.** La ADA incluye la ascendencia latina entre los factores de riesgo de su tabla 2.5. El sistema no pregunta la etnia, y el criterio se aplica solo con la edad, el IMC, el antecedente familiar, la hipertensión y la actividad física. ¿Debería considerarse que, en Lima, el sobrepeso basta por sí solo para recomendar la prueba?
-2. **Perímetro abdominal.** Ningún mensaje se activa por el perímetro abdominal, porque no se pudieron verificar puntos de corte específicos para población sudamericana. ¿Se recomienda alguno (por ejemplo, los de la IDF o los de una guía peruana)?
-3. **Recursos locales.** Los mensajes remiten de forma genérica a un "establecimiento de salud". ¿Conviene mencionar servicios concretos de MINSA o EsSalud para la prueba de HbA1c o glucosa, o para dejar de fumar?
-4. **Pertinencia de las fuentes.** Las guías citadas son de EE. UU. y de la OMS. ¿Hay guías o normas técnicas peruanas que deban citarse en su lugar o además?
-5. **Redacción.** Claridad para la población general de Lima y uso de "usted".
+## 7. Calificación
 
-## 7. Formato sugerido para la calificación
-
-Para cada mensaje, cada experto califica de 1 (muy en desacuerdo) a 4 (muy de acuerdo):
+Para cada mensaje, cada experto califica de 1 (no cumple con el criterio) a 4 (alto nivel), en la ficha de validación (`juicio_expertos/Ficha_juicio_expertos.docx`):
 
 | Criterio | Pregunta |
 |---|---|
@@ -108,4 +105,4 @@ Para cada mensaje, cada experto califica de 1 (muy en desacuerdo) a 4 (muy de ac
 | Claridad | Una persona sin formación en salud lo entiende |
 | Prudencia | No promete resultados ni puede interpretarse como diagnóstico |
 
-Los mensajes que no alcancen el acuerdo definido en el plan de tesis se corrigen. Cada cambio queda registrado con fecha en el protocolo, y la versión del catálogo se actualiza.
+Los mensajes con V de Aiken menor a 0.80 se corrigen. Cada cambio queda registrado con fecha en el protocolo, y la versión del catálogo se actualiza.
