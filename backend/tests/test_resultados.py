@@ -58,3 +58,14 @@ def test_resumen_reporta_rendimiento_y_usabilidad(client, payload_perfil_bajo, a
 
 def test_resumen_requiere_clave(client):
     assert client.get("/resultados/resumen").status_code == 401
+
+
+def test_produccion_exige_una_clave_propia():
+    import pytest
+
+    from app.config import Settings, validar_configuracion
+
+    postgres = "postgresql://usuario:clave@servidor/base"
+    with pytest.raises(RuntimeError):
+        validar_configuracion(Settings(DATABASE_URL=postgres, API_KEY="change-me-too"))
+    validar_configuracion(Settings(DATABASE_URL=postgres, API_KEY="una-clave-propia"))

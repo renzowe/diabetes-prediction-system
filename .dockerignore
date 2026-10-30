@@ -1,0 +1,16 @@
+# La imagen solo necesita backend/requirements.txt, backend/app y models/nhanes
+.git
+.env
+.env.*
+data
+docs
+frontend
+juicio_expertos
+evaluacion_usabilidad
+notebooks
+particion
+resultados
+*.docx
+*.pdf
+**/__pycache__
+**/.pytest_cache

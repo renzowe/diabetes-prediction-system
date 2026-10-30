@@ -5,7 +5,8 @@ from app.config import settings
 
 connect_args = {"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {}
 
-engine = create_engine(settings.DATABASE_URL, connect_args=connect_args)
+# Neon suspende la base inactiva y cierra sus conexiones: se comprueban antes de usarlas
+engine = create_engine(settings.DATABASE_URL, connect_args=connect_args, pool_pre_ping=True, pool_recycle=300)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

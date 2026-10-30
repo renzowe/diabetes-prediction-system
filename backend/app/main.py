@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import settings
+from app.config import settings, validar_configuracion
 from app.database import Base, engine
 from app.routers import prediccion, resultados, usabilidad
 from app.services.predictor import ModeloRiesgo
@@ -11,6 +11,7 @@ from app.services.predictor import ModeloRiesgo
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    validar_configuracion(settings)
     # Crea las tablas que no existan (no modifica las existentes) y carga el modelo una sola vez
     Base.metadata.create_all(bind=engine)
     app.state.modelo = ModeloRiesgo(settings.MODELS_DIR)
