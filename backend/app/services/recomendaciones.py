@@ -10,7 +10,7 @@ someten al juicio de expertos (version del catalogo en VERSION_CATALOGO).
 from dataclasses import dataclass
 from typing import Callable
 
-VERSION_CATALOGO = "1.0 (2026-10-21)"  # se incrementa si el juicio de expertos produce cambios
+VERSION_CATALOGO = "1.1 (2026-11-21)"  # 1.1: correcciones tras la primera ronda del juicio de expertos
 
 FUENTES = {
     "ADA-2": (
@@ -106,7 +106,7 @@ CATALOGO = [
         id="tabaco",
         titulo="Tabaco",
         texto=(
-            "Fumar es una de las causas de la diabetes tipo 2: según los CDC, las personas que fuman tienen entre "
+            "Fumar aumenta el riesgo de desarrollar diabetes tipo 2: según los CDC, las personas que fuman tienen entre "
             "30 y 40 % más probabilidad de desarrollarla que quienes no fuman. La Asociación Americana de Diabetes "
             "indica que las personas con riesgo de diabetes deben recibir orientación para dejar de fumar. Puede "
             "pedir apoyo para dejar de fumar en su establecimiento de salud."

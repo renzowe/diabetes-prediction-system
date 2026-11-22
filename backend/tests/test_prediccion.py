@@ -31,7 +31,7 @@ def test_predict_devuelve_probabilidad_intervalo_factores_y_recomendaciones(clie
     assert 0 < inferior <= data["probabilidad"] <= superior < 1
     assert data["imc"] == round(95 / 1.69**2, 2)
     assert "No es un diagnóstico" in data["mensaje"]
-    assert "No son consejos de salud ni efectos causales" in data["nota_factores"]
+    assert "No son consejos de salud ni indican causas" in data["nota_factores"]
     assert "No indica un rango de su HbA1c" in data["nota_intervalo"]
     assert 2 <= len(data["recomendaciones"]) <= 3
     assert "nivel_riesgo" not in data  # sin categorias de riesgo (plan de tesis, 4.6.1)

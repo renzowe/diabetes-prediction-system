@@ -1,6 +1,6 @@
 # Catálogo de recomendaciones preventivas
 
-Versión 1.0 (2026-10-21), sometida al juicio de expertos. Los textos de la sección 3 son **idénticos** a los que muestra el sistema web (`backend/app/services/recomendaciones.py`); una prueba automática verifica que coincidan.
+Versión 1.1 (2026-11-21), corregida tras la primera ronda del juicio de expertos (la versión 1.0, del 2026-10-21, se sometió a esa ronda). Los textos de la sección 3 son **idénticos** a los que muestra el sistema web (`backend/app/services/recomendaciones.py`); una prueba automática verifica que coincidan.
 
 ## 1. Propósito y principios
 
@@ -47,7 +47,7 @@ Así, cada persona recibe siempre dos o tres mensajes.
 
 ### Tabaco (`tabaco`)
 
-> Fumar es una de las causas de la diabetes tipo 2: según los CDC, las personas que fuman tienen entre 30 y 40 % más probabilidad de desarrollarla que quienes no fuman. La Asociación Americana de Diabetes indica que las personas con riesgo de diabetes deben recibir orientación para dejar de fumar. Puede pedir apoyo para dejar de fumar en su establecimiento de salud.
+> Fumar aumenta el riesgo de desarrollar diabetes tipo 2: según los CDC, las personas que fuman tienen entre 30 y 40 % más probabilidad de desarrollarla que quienes no fuman. La Asociación Americana de Diabetes indica que las personas con riesgo de diabetes deben recibir orientación para dejar de fumar. Puede pedir apoyo para dejar de fumar en su establecimiento de salud.
 
 - **Criterio:** fuma actualmente (todos los días o algunos días).
 - **Fuentes:** CDC-TAB, ADA-3.

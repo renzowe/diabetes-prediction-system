@@ -68,10 +68,10 @@ NOTA_INTERVALO = (
 )
 
 NOTA_FACTORES = (
-    "Estas contribuciones (valores SHAP) describen cómo el modelo combinó sus datos para obtener la estimación, "
-    "en comparación con una persona promedio de la población de referencia (adultos de 20 a 69 años de EE. UU. "
-    "sin diagnóstico previo, NHANES 2007-2020). No son consejos de salud ni efectos causales: no indican que "
-    "cambiar un dato vaya a modificar su probabilidad real."
+    "Estos datos muestran cuáles de sus respuestas influyeron más en la estimación, en comparación con una persona "
+    "promedio de la población con la que se desarrolló el modelo (adultos de 20 a 69 años de EE. UU. sin diagnóstico "
+    "previo). No son consejos de salud ni indican causas: cambiar uno de estos datos no garantiza que cambie su "
+    "probabilidad real."
 )
 
 # Aviso añadido DESPUES de la evaluacion final (protocolo, seccion 15): en el conjunto de prueba la

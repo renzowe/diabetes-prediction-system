@@ -3,8 +3,9 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field, computed_field, model_validator
 
 MENSAJE_FUERA_DE_ALCANCE = (
-    "Este sistema está pensado para personas sin diagnóstico previo de diabetes ni prediabetes y que no estén "
-    "embarazadas. Si ya recibió un diagnóstico o está embarazada, siga las indicaciones de su profesional de salud."
+    "Este sistema no puede estimar su resultado, porque está pensado para personas sin diagnóstico previo de diabetes "
+    "ni prediabetes y que no estén embarazadas. Si ya recibió un diagnóstico o está embarazada, siga los controles que "
+    "le indique su profesional de salud."
 )
 
 

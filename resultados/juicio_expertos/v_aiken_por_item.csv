@@ -1,0 +1,30 @@
+seccion,item_id,nombre,V_minimo,V_promedio,valido (todos los criterios >= 0.80)
+A. Variables predictoras,A1,Edad,0.5833333333333334,0.75,No
+A. Variables predictoras,A2,Sexo,0.6666666666666666,0.8333333333333334,No
+A. Variables predictoras,A3,Índice de masa corporal (IMC),1.0,1.0,Sí
+A. Variables predictoras,A4,Perímetro abdominal,0.8333333333333334,0.8611111111111112,Sí
+A. Variables predictoras,A5,Hipertensión diagnosticada,0.75,0.7777777777777778,No
+A. Variables predictoras,A6,Antecedente familiar de diabetes,1.0,1.0,Sí
+A. Variables predictoras,A7,Actividad física recreativa,0.6666666666666666,0.7777777777777777,No
+A. Variables predictoras,A8,Tabaquismo actual,0.5,0.6666666666666666,No
+B. Preguntas del formulario,B1,Pregunta de filtro,1.0,1.0,Sí
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),0.5,0.638888888888889,No
+B. Preguntas del formulario,B3,Edad,0.5833333333333334,0.7777777777777778,No
+B. Preguntas del formulario,B4,Peso y talla,0.9166666666666666,0.9722222222222222,Sí
+B. Preguntas del formulario,B5,Perímetro abdominal,0.9166666666666666,0.9166666666666666,Sí
+B. Preguntas del formulario,B6,Hipertensión,0.9166666666666666,0.9166666666666666,Sí
+B. Preguntas del formulario,B7,Antecedente familiar,1.0,1.0,Sí
+B. Preguntas del formulario,B8,Actividad física,0.75,0.8055555555555555,No
+B. Preguntas del formulario,B9,Tabaco,0.4166666666666667,0.6111111111111112,No
+C. Mensajes del resultado,C1,Mensaje de alcance,1.0,1.0,Sí
+C. Mensajes del resultado,C2,Nota sobre el intervalo,0.8333333333333334,0.8333333333333334,Sí
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,0.75,0.75,No
+C. Mensajes del resultado,C4,Nota sobre las recomendaciones,0.9166666666666666,0.9722222222222222,Sí
+C. Mensajes del resultado,C5,Aviso para personas de 60 a 69 años,0.9166666666666666,0.9722222222222222,Sí
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,0.75,0.75,No
+D. Catálogo de recomendaciones,D1,Actividad física,1.0,1.0,Sí
+D. Catálogo de recomendaciones,D2,Peso corporal,1.0,1.0,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,0.6666666666666666,0.7916666666666666,No
+D. Catálogo de recomendaciones,D4,Prueba de laboratorio,1.0,1.0,Sí
+D. Catálogo de recomendaciones,D5,Cuándo realizarse una prueba,0.9166666666666666,0.9791666666666666,Sí
+D. Catálogo de recomendaciones,D6,Síntomas que requieren consulta,1.0,1.0,Sí

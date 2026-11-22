@@ -135,6 +135,19 @@ body {
     outline-offset: 1px;
 }
 
+/* Aclaraciones dentro de las preguntas Sí/No: ocupan toda la fila */
+.toggle-group .hint {
+    flex-basis: 100%;
+}
+
+.hint--destacado {
+    display: block;
+    padding: 6px 10px;
+    border-left: 3px solid var(--primary);
+    background: var(--surface);
+    color: var(--ink);
+}
+
 .hint {
     font-size: 12px;
     color: var(--ink-muted);

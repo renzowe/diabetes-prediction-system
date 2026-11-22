@@ -1,0 +1,94 @@
+seccion,item_id,nombre,criterio,media,V,IC95_inf,IC95_sup,valido (V >= 0.80)
+A. Variables predictoras,A1,Edad,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A1,Edad,Coherencia,3.0,0.6666666666666666,0.3906220869404939,0.8618799098751401,No
+A. Variables predictoras,A1,Edad,Relevancia,2.75,0.5833333333333334,0.3195113108424242,0.8067396875653928,No
+A. Variables predictoras,A2,Sexo,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A2,Sexo,Coherencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+A. Variables predictoras,A2,Sexo,Relevancia,3.0,0.6666666666666666,0.3906220869404939,0.8618799098751401,No
+A. Variables predictoras,A3,Índice de masa corporal (IMC),Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A3,Índice de masa corporal (IMC),Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A3,Índice de masa corporal (IMC),Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A4,Perímetro abdominal,Claridad,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+A. Variables predictoras,A4,Perímetro abdominal,Coherencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+A. Variables predictoras,A4,Perímetro abdominal,Relevancia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+A. Variables predictoras,A5,Hipertensión diagnosticada,Claridad,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+A. Variables predictoras,A5,Hipertensión diagnosticada,Coherencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+A. Variables predictoras,A5,Hipertensión diagnosticada,Relevancia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+A. Variables predictoras,A6,Antecedente familiar de diabetes,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A6,Antecedente familiar de diabetes,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A6,Antecedente familiar de diabetes,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A7,Actividad física recreativa,Claridad,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+A. Variables predictoras,A7,Actividad física recreativa,Coherencia,3.0,0.6666666666666666,0.3906220869404939,0.8618799098751401,No
+A. Variables predictoras,A7,Actividad física recreativa,Relevancia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+A. Variables predictoras,A8,Tabaquismo actual,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A8,Tabaquismo actual,Coherencia,2.5,0.5,0.2537815961625239,0.7462184038374761,No
+A. Variables predictoras,A8,Tabaquismo actual,Relevancia,2.5,0.5,0.2537815961625239,0.7462184038374761,No
+B. Preguntas del formulario,B1,Pregunta de filtro,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B1,Pregunta de filtro,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B1,Pregunta de filtro,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),Claridad,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),Coherencia,2.75,0.5833333333333334,0.3195113108424242,0.8067396875653928,No
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),Relevancia,2.5,0.5,0.2537815961625239,0.7462184038374761,No
+B. Preguntas del formulario,B3,Edad,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B3,Edad,Coherencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+B. Preguntas del formulario,B3,Edad,Relevancia,2.75,0.5833333333333334,0.3195113108424242,0.8067396875653928,No
+B. Preguntas del formulario,B4,Peso y talla,Claridad,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B4,Peso y talla,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B4,Peso y talla,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B5,Perímetro abdominal,Claridad,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B5,Perímetro abdominal,Coherencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B5,Perímetro abdominal,Relevancia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B6,Hipertensión,Claridad,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B6,Hipertensión,Coherencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B6,Hipertensión,Relevancia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B7,Antecedente familiar,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B7,Antecedente familiar,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B7,Antecedente familiar,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B8,Actividad física,Claridad,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+B. Preguntas del formulario,B8,Actividad física,Coherencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+B. Preguntas del formulario,B8,Actividad física,Relevancia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B9,Tabaco,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B9,Tabaco,Coherencia,2.25,0.4166666666666667,0.1932603124346072,0.6804886891575758,No
+B. Preguntas del formulario,B9,Tabaco,Relevancia,2.25,0.4166666666666667,0.1932603124346072,0.6804886891575758,No
+C. Mensajes del resultado,C1,Mensaje de alcance,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C1,Mensaje de alcance,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C1,Mensaje de alcance,Prudencia,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C2,Nota sobre el intervalo,Claridad,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+C. Mensajes del resultado,C2,Nota sobre el intervalo,Coherencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+C. Mensajes del resultado,C2,Nota sobre el intervalo,Prudencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,Claridad,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,Coherencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,Prudencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+C. Mensajes del resultado,C4,Nota sobre las recomendaciones,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C4,Nota sobre las recomendaciones,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C4,Nota sobre las recomendaciones,Prudencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+C. Mensajes del resultado,C5,Aviso para personas de 60 a 69 años,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C5,Aviso para personas de 60 a 69 años,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C5,Aviso para personas de 60 a 69 años,Prudencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,Claridad,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,Coherencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,Prudencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+D. Catálogo de recomendaciones,D1,Actividad física,Sustento,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D1,Actividad física,Pertinencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D1,Actividad física,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D1,Actividad física,Prudencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D2,Peso corporal,Sustento,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D2,Peso corporal,Pertinencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D2,Peso corporal,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D2,Peso corporal,Prudencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,Sustento,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+D. Catálogo de recomendaciones,D3,Tabaco,Pertinencia,3.25,0.75,0.46769466291833667,0.9110583323051143,No
+D. Catálogo de recomendaciones,D3,Tabaco,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,Prudencia,3.0,0.6666666666666666,0.3906220869404939,0.8618799098751401,No
+D. Catálogo de recomendaciones,D4,Prueba de laboratorio,Sustento,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D4,Prueba de laboratorio,Pertinencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D4,Prueba de laboratorio,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D4,Prueba de laboratorio,Prudencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D5,Cuándo realizarse una prueba,Sustento,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D5,Cuándo realizarse una prueba,Pertinencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D5,Cuándo realizarse una prueba,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D5,Cuándo realizarse una prueba,Prudencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+D. Catálogo de recomendaciones,D6,Síntomas que requieren consulta,Sustento,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D6,Síntomas que requieren consulta,Pertinencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D6,Síntomas que requieren consulta,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D6,Síntomas que requieren consulta,Prudencia,4.0,1.0,0.7575059904469021,1.0,Sí

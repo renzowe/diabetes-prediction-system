@@ -1,0 +1,5 @@
+item_id,nombre,experto,observacion
+A4,Perímetro abdominal,E4,El item es importante y no debe ser opcional.
+A7,Actividad física recreativa,E1,Deberia Especificar el tiempo minimo de ejercicio al dia.
+A7,Actividad física recreativa,E4,"Especificar la frecuencia, minimo son 30 minutos diarios, mencionar la ocupacion. Ej. Conductor no realiza act.fisica."
+B8,Actividad física,E4,Debe ser mas expecifico. Ej. 30 minutos que es lo recomendado.
