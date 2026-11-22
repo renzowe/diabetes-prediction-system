@@ -1,0 +1,13 @@
+seccion,item_id,nombre,V_minimo,V_promedio,valido (todos los criterios >= 0.80)
+A. Variables predictoras,A1,Edad,1.0,1.0,Sí
+A. Variables predictoras,A2,Sexo,0.9166666666666666,0.9722222222222222,Sí
+A. Variables predictoras,A5,Hipertensión diagnosticada,1.0,1.0,Sí
+A. Variables predictoras,A7,Actividad física recreativa,1.0,1.0,Sí
+A. Variables predictoras,A8,Tabaquismo actual,1.0,1.0,Sí
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),0.9166666666666666,0.9722222222222222,Sí
+B. Preguntas del formulario,B3,Edad,0.8333333333333334,0.9444444444444445,Sí
+B. Preguntas del formulario,B8,Actividad física,0.9166666666666666,0.9444444444444443,Sí
+B. Preguntas del formulario,B9,Tabaco,0.8333333333333334,0.9444444444444445,Sí
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,0.8333333333333334,0.9444444444444445,Sí
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,0.9166666666666666,0.9722222222222222,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,0.8333333333333334,0.9375,Sí

@@ -1,0 +1,38 @@
+seccion,item_id,nombre,criterio,media,V,IC95_inf,IC95_sup,valido (V >= 0.80)
+A. Variables predictoras,A1,Edad,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A1,Edad,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A1,Edad,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A2,Sexo,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A2,Sexo,Coherencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+A. Variables predictoras,A2,Sexo,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A5,Hipertensión diagnosticada,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A5,Hipertensión diagnosticada,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A5,Hipertensión diagnosticada,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A7,Actividad física recreativa,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A7,Actividad física recreativa,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A7,Actividad física recreativa,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A8,Tabaquismo actual,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A8,Tabaquismo actual,Coherencia,4.0,1.0,0.7575059904469021,1.0,Sí
+A. Variables predictoras,A8,Tabaquismo actual,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),Coherencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B2,Embarazo (solo mujeres),Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B3,Edad,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B3,Edad,Coherencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+B. Preguntas del formulario,B3,Edad,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B8,Actividad física,Claridad,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B8,Actividad física,Coherencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+B. Preguntas del formulario,B8,Actividad física,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B9,Tabaco,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+B. Preguntas del formulario,B9,Tabaco,Coherencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+B. Preguntas del formulario,B9,Tabaco,Relevancia,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,Coherencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
+C. Mensajes del resultado,C3,Nota sobre las contribuciones,Prudencia,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,Coherencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+C. Mensajes del resultado,C6,Mensaje de fuera de alcance,Prudencia,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,Sustento,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,Pertinencia,3.75,0.9166666666666666,0.6461200862787544,0.9851349057603307,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,Claridad,4.0,1.0,0.7575059904469021,1.0,Sí
+D. Catálogo de recomendaciones,D3,Tabaco,Prudencia,3.5,0.8333333333333334,0.5519691353881888,0.9530348582430792,Sí
