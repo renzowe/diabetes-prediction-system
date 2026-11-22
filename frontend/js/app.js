@@ -209,8 +209,8 @@ function mostrarResultado(data) {
         + `modelo: ${data.modelo.algoritmo} (${data.modelo.datos_entrenamiento})`;
 
     const linkSus = document.getElementById('link-sus');
-    linkSus.hidden = !participantCode;
-    linkSus.href = `sus.html?codigo=${encodeURIComponent(participantCode)}`;
+    // El botón siempre se muestra; si no se escribió el código, la encuesta lo pide
+    linkSus.href = participantCode ? `sus.html?codigo=${encodeURIComponent(participantCode)}` : 'sus.html';
 
     const gaugeEl = document.getElementById('gauge-value');
     gaugeEl.style.strokeDashoffset = CIRCUMFERENCE; // reinicia antes de animar
