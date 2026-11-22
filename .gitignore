@@ -53,3 +53,6 @@ desktop.ini
 logs/   
 # Fichas de expertos firmadas (escaneos o fotos): contienen nombres y firmas, no se versionan
 /juicio_expertos/respuestas/
+
+# Descargas de la evaluación de usabilidad (códigos de participante y datos de salud)
+/evaluacion_usabilidad/*.csv

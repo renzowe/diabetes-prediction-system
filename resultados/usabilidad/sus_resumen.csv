@@ -1,0 +1,14 @@
+Indicador,Valor
+Participantes (n),15
+"Puntaje SUS, media",93.83333333333333
+Desviación estándar,7.125574329400369
+IC 95 % de la media (inferior),89.88732179666295
+IC 95 % de la media (superior),97.77934487000371
+Mediana,95.0
+Mínimo,77.5
+Máximo,100.0
+"Participantes con puntaje ≥ 68, n",15
+"Participantes con puntaje ≥ 68, %",100.0
+Prueba t de una muestra frente a 68 (unilateral): p,6.08e-10
+Prueba de Wilcoxon frente a 68 (unilateral): p,2.91e-04
+Interpretación de la media,Excelente
