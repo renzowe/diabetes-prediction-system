@@ -1,0 +1,8 @@
+Indicador,Valor
+Evaluaciones analizadas,15.0
+Tiempo medio (ms),2.2977345002194247
+Desviación estándar (ms),6.838006336489374
+Mediana (ms),0.5395510233938694
+Percentil 95 (ms),8.620930742472382
+Máximo (ms),27.013210114091635
+"Evaluaciones con tiempo < 2000 ms, %",100.0
