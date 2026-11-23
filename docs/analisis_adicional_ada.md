@@ -84,3 +84,4 @@ Independientemente del escenario: se reporta el resultado de la versión A en el
 | Fecha (Lima) | Evento |
 |---|---|
 | 2026-11-22 | Reglas redactadas. Verificado que RHQ162 existe en los seis ciclos. Sin cálculo del ADA Risk Test |
+| 2026-11-22 | Commit de las reglas (`433b8df`). Análisis ejecutado una sola vez con `notebooks/nhanes/06_adicional_ada_risk_test.py`; resultados en `resultados/nhanes/06_ada_risk_test/`. Se calculó solo la versión A; la versión B no se calculó (el punto de la tarjeta oficial no se confirmó). Escenario 1 (el modelo discrimina mejor): AUC-ROC 0.746 frente a 0.728 en 4,479 casos completos; diferencia 0.017 (IC 95 % 0.010–0.025; DeLong pareado p < 0.001) |
